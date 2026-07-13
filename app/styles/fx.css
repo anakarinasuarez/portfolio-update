@@ -1,0 +1,40 @@
+/* ============================================================
+   Motion FX styles — scroll progress, masked reveals, tilt easing
+   ============================================================ */
+
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 9600;
+  pointer-events: none; background: transparent;
+}
+.scroll-progress span {
+  display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  will-change: transform;
+}
+
+/* Smooth easing for JS-driven transforms */
+.proj-media { transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); transform-style: preserve-3d; }
+.portrait-img { will-change: transform; }
+
+/* ---- Masked "rise" reveal for titles ---- */
+.reveal-rise { position: relative; }
+.reveal-rise > .rise-line { display: block; overflow: hidden; }
+.reveal-rise .rise-inner {
+  display: block; transform: translateY(110%);
+  transition: transform 0.95s var(--ease);
+  transition-delay: var(--rise-delay, 0ms);
+}
+.reveal-rise.in .rise-inner { transform: translateY(0); }
+[data-motion="off"] .reveal-rise .rise-inner,
+html.anim-frozen .reveal-rise .rise-inner { transform: none !important; transition: none !important; }
+
+/* ---- Soft blur-in variant for eyebrows / leads ---- */
+.reveal[data-anim="blur"] { filter: blur(8px); }
+.reveal[data-anim="blur"].in { filter: blur(0); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease); }
+[data-motion="off"] .reveal[data-anim="blur"],
+html.anim-frozen .reveal[data-anim="blur"] { filter: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-rise .rise-inner { transform: none !important; transition: none !important; }
+  .scroll-progress { display: none; }
+}

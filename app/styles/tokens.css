@@ -1,0 +1,220 @@
+/* ============================================================
+   Ana Karina Suárez — Portfolio
+   Design tokens + base styles. Two visual directions controlled
+   by [data-direction] on <html>; accent by [data-accent].
+   ============================================================ */
+
+:root {
+  /* Type families — bound to next/font variables (set in layout.tsx) */
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-grotesk: var(--font-space-grotesk), system-ui, sans-serif;
+
+  /* Display font defaults to editorial serif */
+  --font-display: var(--font-serif);
+  --display-weight: 400;
+  --display-tracking: -0.01em;
+  --eyebrow-tracking: 0.22em;
+
+  /* Surfaces — warm near-black (Editorial Noir) */
+  --bg: oklch(0.15 0.006 60);
+  --bg-2: oklch(0.18 0.007 60);
+  --bg-3: oklch(0.21 0.008 60);
+  --line: oklch(0.30 0.01 60);
+  --line-soft: oklch(0.26 0.008 60 / 0.6);
+
+  --text: oklch(0.95 0.006 70);
+  --text-dim: oklch(0.74 0.008 70);
+  --text-faint: oklch(0.55 0.008 70);
+
+  /* Accent — coral red */
+  --accent: #EF5143;
+  --accent-bright: #ff6d5f;
+  --accent-dim: rgba(239, 81, 67, 0.14);
+  --accent-line: rgba(239, 81, 67, 0.42);
+  --accent-ink: #fff;
+
+  --grid-line: transparent;
+
+  --maxw: 1240px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --radius: 18px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- Technical Mono direction ---- */
+[data-direction="mono"] {
+  --font-display: var(--font-grotesk);
+  --display-weight: 600;
+  --display-tracking: -0.03em;
+  --eyebrow-tracking: 0.28em;
+
+  --bg: oklch(0.155 0.008 260);
+  --bg-2: oklch(0.185 0.009 260);
+  --bg-3: oklch(0.215 0.01 260);
+  --line: oklch(0.31 0.012 260);
+  --line-soft: oklch(0.27 0.01 260 / 0.6);
+
+  --text: oklch(0.96 0.004 250);
+  --text-dim: oklch(0.74 0.008 250);
+  --text-faint: oklch(0.55 0.01 250);
+
+  --grid-line: oklch(0.27 0.01 260 / 0.5);
+}
+
+/* ---- Accent variants ---- */
+[data-accent="blue"] {
+  --accent: oklch(0.64 0.15 245);
+  --accent-bright: oklch(0.74 0.14 245);
+  --accent-dim: oklch(0.64 0.15 245 / 0.14);
+  --accent-line: oklch(0.64 0.15 245 / 0.4);
+}
+[data-accent="amber"] {
+  --accent: oklch(0.76 0.13 72);
+  --accent-bright: oklch(0.84 0.12 80);
+  --accent-dim: oklch(0.76 0.13 72 / 0.14);
+  --accent-line: oklch(0.76 0.13 72 / 0.4);
+}
+[data-accent="cream"] {
+  --accent: #EF5143;
+  --accent-bright: #ff6d5f;
+  --accent-dim: rgba(239, 81, 67, 0.14);
+  --accent-line: rgba(239, 81, 67, 0.42);
+  --accent-ink: #fff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--bg);
+  background-image: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 32%, var(--bg) 60%, var(--bg-2) 88%, var(--bg) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ---- Layout helpers ---- */
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gutter); }
+
+.section { position: relative; padding-block: clamp(80px, 12vh, 160px); }
+/* soft gradient separators between sections */
+.about, .experience, .capabilities, .contact, .craft { border-top: none; }
+.about::before, .experience::before, .capabilities::before, .contact::before, .craft::before {
+  content: ""; position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: var(--eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px; height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  line-height: 1.0;
+  font-size: clamp(38px, 6vw, 76px);
+  text-wrap: balance;
+}
+[data-direction="editorial"] .section-title { line-height: 0.98; }
+
+.text-accent { color: var(--accent-bright); }
+.serif-em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
+[data-direction="mono"] .serif-em { font-family: var(--font-grotesk); font-style: normal; }
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 15px; font-weight: 600;
+  letter-spacing: -0.01em;
+  border: 1px solid transparent;
+  transition: transform 0.4s var(--ease), background 0.3s, border-color 0.3s, color 0.3s;
+  white-space: nowrap;
+}
+[data-direction="mono"] .btn { border-radius: 8px; font-family: var(--font-grotesk); }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--accent-bright); }
+.btn-ghost { border-color: var(--line); color: var(--text); background: transparent; }
+.btn-ghost:hover { border-color: var(--text-dim); background: var(--bg-2); }
+.btn .arrow { transition: transform 0.4s var(--ease); }
+.btn:hover .arrow { transform: translate(3px, -3px); }
+
+/* ---- Reveal on scroll ---- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+[data-motion="off"] .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+
+/* Frozen animation clock (embedded preview): force visible end-state */
+html.anim-frozen .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+html.anim-frozen .status-dot { animation: none !important; }
+
+/* ---- Grain / texture overlay ---- */
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9990;
+  opacity: 0.04; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-grain="off"] .grain { display: none; }
+
+/* image-slot theming + placeholder (React <ImageSlot/>) */
+.img-slot {
+  --slot-bg: var(--bg-2);
+  --slot-border: var(--line);
+  --slot-fg: var(--text-faint);
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--slot-bg);
+}
+.img-slot-img { object-fit: cover; }
+.img-slot-ph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  text-align: center;
+  color: var(--slot-fg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  background:
+    radial-gradient(120% 120% at 30% 20%, var(--bg-3), transparent 60%),
+    linear-gradient(135deg, var(--bg-2), var(--bg));
+  border: 1px solid var(--slot-border);
+  border-radius: inherit;
+}

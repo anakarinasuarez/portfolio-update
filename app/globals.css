@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* The design system CSS (tokens/sections/fx/chat) is imported from
+   app/layout.tsx after this file so Turbopack bundles it reliably. */
+
+/* Hero portrait is static — no hover interaction (lift + pointer removed). */
+.hp-frame { cursor: default; }
+.hero-portrait:hover .hp-frame { transform: none; }
+
+/* ---- Accessible focus (visible on dark surfaces, keyboard nav) ---- */
+:focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.btn:focus-visible,
+a:focus-visible {
+  outline-offset: 4px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10000;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 12px 18px;
+  border-radius: 0 0 12px 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Respect reduced motion globally (belt-and-suspenders with per-file rules) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
