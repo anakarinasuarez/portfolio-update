@@ -88,7 +88,7 @@ export function Nav() {
       }
     >
       <div className="nav-inner wrap">
-        <a href="#top" className="brand" aria-label="Ana Karina Suárez — inicio">
+        <a href="#top" className="brand" aria-label="Ana Karina Suárez, inicio">
           <Logo />
         </a>
         <nav className="nav-links" aria-label={lang === "es" ? "Principal" : "Primary"}>

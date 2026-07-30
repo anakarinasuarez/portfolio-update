@@ -169,7 +169,8 @@ export function Hero() {
                 shape="rect"
                 decorative
                 src={IMAGES.floats[i % IMAGES.floats.length]}
-                sizes="(max-width: 880px) 0px, 150px"
+                sizes="(max-width: 880px) 0px, 260px"
+                quality={92}
                 placeholder={"Foto " + (i + 1)}
               />
             </span>
@@ -218,7 +219,7 @@ export function Hero() {
           <a
             href={siteConfig.cv[lang]}
             className="btn btn-ghost"
-            download={`Ana Karina Suárez González — CV ${lang.toUpperCase()}.pdf`}
+            download={`Ana Karina Suárez González - CV ${lang.toUpperCase()}.pdf`}
           >
             {c.cv}
           </a>

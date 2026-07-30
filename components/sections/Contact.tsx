@@ -22,20 +22,20 @@ const EMAIL = "karinasuarezdos@gmail.com";
 
 const CONTACT_COPY: Record<Lang, ContactCopy> = {
   en: {
-    eyebrow: "Open to roles · freelance · collaborations",
+    eyebrow: "Available to join your team, full-time · freelance · collaborations",
     title: <>Let&apos;s ship work that<br /><span className="serif-em">moves the number.</span></>,
     start: "Start a conversation",
     cvLabel: "Download CV",
     socials: [["LinkedIn", "https://www.linkedin.com/in/connect-ana-karina-su%C3%A1rez-gonz%C3%A1lez/", "linkedin"], ["GitHub", "https://github.com/anakarinasuarez", "github"], ["Email", "mailto:" + EMAIL, "email"], ["Phone", "tel:" + siteConfig.phone, "phone"]],
-    loc: "Seville, Spain — available remote, worldwide · ES (native) · EN (intermediate)",
+    loc: "Seville, Spain · available remote, worldwide · ES (native) · EN (intermediate)",
   },
   es: {
-    eyebrow: "Disponible · freelance · colaboraciones",
+    eyebrow: "Disponible para incorporarme a tu equipo, en plantilla · freelance · colaboraciones",
     title: <>Lancemos algo que<br /><span className="serif-em">mueva el número.</span></>,
     start: "Empecemos a hablar",
     cvLabel: "Descargar CV",
     socials: [["LinkedIn", "https://www.linkedin.com/in/connect-ana-karina-su%C3%A1rez-gonz%C3%A1lez/", "linkedin"], ["GitHub", "https://github.com/anakarinasuarez", "github"], ["Email", "mailto:" + EMAIL, "email"], ["Teléfono", "tel:" + siteConfig.phone, "phone"]],
-    loc: "Sevilla, España — disponible en remoto, en todo el mundo · ES (nativo) · EN (intermedio)",
+    loc: "Sevilla, España · disponible en remoto, en todo el mundo · ES (nativo) · EN (intermedio)",
   },
 };
 
@@ -67,9 +67,6 @@ export function Contact() {
       <div className="wrap contact-inner">
         <div className="eyebrow reveal"><span className="status-dot" /> {c.eyebrow}</div>
         <h2 className="contact-title reveal" data-delay="60">{c.title}</h2>
-        <a href={"mailto:" + EMAIL} className="contact-email reveal" data-delay="120">
-          {EMAIL} <Arrow size={22} />
-        </a>
         <div className="contact-actions reveal" data-delay="180">
           <a href={"mailto:" + EMAIL} className="btn btn-primary">{c.start} <Arrow /></a>
         </div>
@@ -77,7 +74,7 @@ export function Contact() {
           <a
             href={siteConfig.cv[lang]}
             className="cv-btn"
-            download={`Ana Karina Suárez González — CV ${lang.toUpperCase()}.pdf`}
+            download={`Ana Karina Suárez González - CV ${lang.toUpperCase()}.pdf`}
           >
             {c.cvLabel} <Arrow size={13} />
           </a>

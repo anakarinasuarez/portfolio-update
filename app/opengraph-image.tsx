@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
 
 // Convención de archivo Next: genera og:image (y twitter:image) en build.
-export const alt = `${siteConfig.name} — ${siteConfig.shortTitle}`;
+export const alt = `${siteConfig.name}, ${siteConfig.shortTitle}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

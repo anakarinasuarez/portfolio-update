@@ -26,6 +26,16 @@ interface Project {
   caseUrl?: string;
   /** Screenshot under /public/images — omit to show the branded placeholder. */
   img?: string;
+  /** Backdrop color behind the board (fallback while the image loads). */
+  bg: string;
+  /** Natural aspect ratio (w/h) of the asset. The frame adopts it so the board
+   * shows COMPLETE — no crop, no letterbox bars — at a uniform height. */
+  ratio: number;
+  /** Near-square boards leave big side margins in the fixed frame; `fill` makes
+   * them cover the frame (matching the visual size of the wider boards). */
+  fill?: boolean;
+  /** Nudge the board up (e.g. "3%") to hide a thin edge/line at its top. */
+  cropTop?: string;
   head: Record<Lang, readonly [string, string]>;
   tagline: Record<Lang, string>;
   en: ProjectContent;
@@ -52,9 +62,9 @@ interface WorkCopy {
 const PROJECTS: Project[] = [
   {
     n: "01", title: "DeepFilm", href: "https://www.deepfilm.ai/",
-    img: IMAGES.work.deepfilm,
+    img: IMAGES.work.deepfilm, bg: "#0a090f", ratio: 2118 / 1728, fill: true,
     head: { en: ["AI FILM,", "DIRECTED"], es: ["CINE con IA,", "DIRIGIDO"] },
-    tagline: { en: "Turn a prompt into a film — an AI director for story, pacing and cut.", es: "Convierte una idea en una película — un director con IA para historia, ritmo y montaje." },
+    tagline: { en: "Turn a prompt into a film, an AI director for story, pacing and cut.", es: "Convierte una idea en una película, un director con IA para historia, ritmo y montaje." },
     en: {
       role: "UX/UI + Frontend", note: "Freelance · deepfilm.ai",
       blurb: "Landing page for an AI video-creation platform with a persistent agent-driven workflow. Cinematic video sections and a responsive, high-performance front-end.",
@@ -71,17 +81,17 @@ const PROJECTS: Project[] = [
   {
     n: "02", title: "Evolution POS",
     caseUrl: "/docs/evolution-pos-rediseno.pdf",
-    img: IMAGES.work.evopos,
+    img: IMAGES.work.evopos, bg: "#4a9b76", ratio: 2880 / 1708,
     head: { en: ["RESTAURANTS,", "REENGINEERED"], es: ["RESTAURANTES,", "REINVENTADOS"] },
-    tagline: { en: "Tables that turn faster and spend more — order & pay in seconds.", es: "Mesas que rotan más rápido y gastan más — pedir y pagar en segundos." },
+    tagline: { en: "Tables that turn faster and spend more, order & pay in seconds.", es: "Mesas que rotan más rápido y gastan más, pedir y pagar en segundos." },
     en: {
-      role: "Frontend Developer & UX/UI Designer", note: "Product · 2022–Now",
+      role: "UX/UI + Frontend", note: "Product · 2022–Now",
       blurb: "Table-side ordering & payment for restaurants, plus a token-based design system that turns each brand's identity into a launch-ready, fully branded page in minutes.",
       results: ["−40% customer wait times", "+23.1% revenue YoY", "Design system → branded page in minutes"],
       tags: ["Product Design", "Design System", "React", "Zustand", "Next.js"],
     },
     es: {
-      role: "Desarrolladora Frontend & Diseñadora UX/UI", note: "Producto · 2022–Hoy",
+      role: "UX/UI + Frontend", note: "Producto · 2022–Hoy",
       blurb: "Pedido y pago desde la mesa para restaurantes, más un sistema de diseño basado en tokens que convierte la identidad de cada marca en una página lista para lanzar en minutos.",
       results: ["−40% tiempos de espera", "+23,1% ingresos interanuales", "Sistema de diseño → página de marca en minutos"],
       tags: ["Diseño de producto", "Sistema de diseño", "React", "Zustand", "Next.js"],
@@ -92,17 +102,17 @@ const PROJECTS: Project[] = [
     href: "https://chef-at-home-v1.vercel.app/",
     figma: "https://www.figma.com/design/wOuCDVihYDlaoOUXhsTDx5/Chef-at-Home?node-id=1289-52&p=f&t=2VKbsRLR5Twlv0Q7-0",
     github: "https://github.com/anakarinasuarez/chef-at-home",
-    img: IMAGES.work.chef,
+    img: IMAGES.work.chef, bg: "#000000", ratio: 2150 / 1392, cropTop: "3%",
     head: { en: ["YOUR PANTRY,", "PLATED"], es: ["TU DESPENSA,", "EN UN PLATO"] },
-    tagline: { en: "Never wonder what's for dinner — your ingredients, instantly plated by AI.", es: "Nunca más pienses qué cocinar — tus ingredientes, servidos al instante con IA." },
+    tagline: { en: "Never wonder what's for dinner, your ingredients, instantly plated by AI.", es: "Nunca más pienses qué cocinar, tus ingredientes servidos al instante con IA." },
     en: {
-      role: "Personal · AI",
+      role: "UX/UI + Frontend", note: "Personal · AI",
       blurb: "A web app that turns the ingredients you already have at home into great recipes, powered by AI.",
       results: ["AI recipe generation", "From pantry to plate", "React web app"],
       tags: ["AI", "Web App", "Personal"],
     },
     es: {
-      role: "Personal · IA",
+      role: "UX/UI + Frontend", note: "Personal · IA",
       blurb: "Una app web que convierte los ingredientes que ya tienes en casa en grandes recetas, con el poder de la IA.",
       results: ["Generación de recetas con IA", "De la despensa al plato", "App web en React"],
       tags: ["IA", "App web", "Personal"],
@@ -113,20 +123,20 @@ const PROJECTS: Project[] = [
     href: "https://read-easily.vercel.app",
     figma: "https://www.figma.com/design/sc9DIhX0wvFgrvmL8NVBf5/ReadEasily?node-id=0-1",
     github: "https://github.com/anakarinasuarez/ReadEasily",
-    img: IMAGES.work.readeasily,
+    img: IMAGES.work.readeasily, bg: "#f2e8d9", ratio: 2516 / 1800,
     head: { en: ["LANGUAGES,", "MADE EASY"], es: ["IDIOMAS,", "MÁS FÁCILES"] },
     tagline: { en: "A full Figma design system, ported 1:1 to a tested, accessible production app.", es: "Un design system completo en Figma, portado 1:1 a una app real, testeada y accesible." },
     en: {
-      role: "UX/UI + Design Systems",
+      role: "UX/UI + Frontend",
       note: "Personal · Design → Code",
-      blurb: "A graded-reading app to learn English through short illustrated fables — read, listen, translate and save words. Built to prove a design decision can reach production intact: a complete Figma design system (~125 tokens, 32 components) ported 1:1 to a Next.js app with strict TypeScript, 686 tests and WCAG AA accessibility.",
+      blurb: "A graded-reading app to learn English through short illustrated fables: read, listen, translate and save words. Built to prove a design decision can reach production intact: a complete Figma design system (~125 tokens, 32 components) ported 1:1 to a Next.js app with strict TypeScript, 686 tests and WCAG AA accessibility.",
       results: ["Figma design system → 1:1 in code", "686 tests · WCAG AA · CI on every PR", "48 screens · ~125 tokens · 32 components"],
       tags: ["Design System", "Figma", "Next.js", "TypeScript", "Testing", "Accessibility"],
     },
     es: {
-      role: "UX/UI + Design Systems",
+      role: "UX/UI + Frontend",
       note: "Personal · Diseño → Código",
-      blurb: "Una app de lectura graduada para aprender inglés con cuentos cortos ilustrados — leer, escuchar, traducir y guardar palabras. Construida para demostrar que una decisión de diseño puede llegar a producción intacta: un design system completo en Figma (~125 tokens, 32 componentes) portado 1:1 a una app Next.js con TypeScript estricto, 686 tests y accesibilidad WCAG AA.",
+      blurb: "Una app de lectura graduada para aprender inglés con cuentos cortos ilustrados: leer, escuchar, traducir y guardar palabras. Construida para demostrar que una decisión de diseño puede llegar a producción intacta: un design system completo en Figma (~125 tokens, 32 componentes) portado 1:1 a una app Next.js con TypeScript estricto, 686 tests y accesibilidad WCAG AA.",
       results: ["Design system en Figma → 1:1 en código", "686 tests · WCAG AA · CI en cada PR", "48 pantallas · ~125 tokens · 32 componentes"],
       tags: ["Design System", "Figma", "Next.js", "TypeScript", "Testing", "Accesibilidad"],
     },
@@ -155,7 +165,7 @@ function ScreenMedia({ p }: { p: Project }) {
       shape="rect"
       src={p.img}
       sizes="(max-width: 768px) 92vw, 960px"
-      placeholder={"Drop a screenshot — " + p.title}
+      placeholder={"Drop a screenshot: " + p.title}
     />
   );
 }
@@ -249,27 +259,40 @@ export function Work() {
         </div>
 
         <div className="ed-stage" key={idx}>
-          <button
-            className="ed-media"
-            ref={mediaRef}
-            onMouseMove={tilt}
-            onMouseLeave={untilt}
-            onClick={() => {
-              // Stop the carousel synchronously so the project you clicked is
-              // exactly the one that opens (no advance in the click's race window).
-              if (timer.current !== null) window.clearInterval(timer.current);
-              setOpen(true);
-            }}
-            aria-label={p.title}
-          >
-            <ScreenMedia p={p} />
-            <span className="ed-scrim" />
-            <span className="ed-glare" aria-hidden="true" />
-          </button>
-          <h3 className="ed-title ed-title-top">{p.head[lang][0]}</h3>
-          <h3 className="ed-title ed-title-bot">{p.head[lang][1]}</h3>
-          <span className="ed-cap ed-cap-l">{cc.role}</span>
-          <span className="ed-cap ed-cap-r">{cc.tags[0]}{cc.tags[1] ? " · " + cc.tags[1] : ""}</span>
+          <h3 className="ed-headline">{p.title}</h3>
+          <div className="ed-media-wrap">
+            <button
+              className="ed-media"
+              ref={mediaRef}
+              data-fill={p.fill ? "true" : undefined}
+              style={{ background: p.bg, ["--crop-top" as string]: p.cropTop ?? "0px" }}
+              onMouseMove={tilt}
+              onMouseLeave={untilt}
+              onClick={() => {
+                // Stop the carousel synchronously so the project you clicked is
+                // exactly the one that opens (no advance in the click's race window).
+                if (timer.current !== null) window.clearInterval(timer.current);
+                setOpen(true);
+              }}
+              aria-label={p.title}
+            >
+              <ScreenMedia p={p} />
+              <span className="ed-glare" aria-hidden="true" />
+            </button>
+            <button className="ed-nav ed-nav-prev" onClick={() => onNav(idx - 1)} aria-label={c.prev}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 4l-8 8 8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+            <button className="ed-nav ed-nav-next" onClick={() => onNav(idx + 1)} aria-label={c.next}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+          </div>
+          <div className="ed-meta">
+            <p className="ed-sub">{p.tagline[lang]}</p>
+            <p className="ed-meta-role">{cc.role}</p>
+            <ul className="ed-meta-tags">
+              {cc.tags.slice(0, 4).map((t) => <li key={t}>{t}</li>)}
+            </ul>
+          </div>
         </div>
 
         <div className="sc-nav reveal">

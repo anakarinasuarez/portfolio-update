@@ -111,6 +111,10 @@ button { font-family: inherit; cursor: pointer; }
 .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gutter); }
 
 .section { position: relative; padding-block: clamp(80px, 12vh, 160px); }
+/* Perf: skip rendering + animating below-the-fold sections until near the
+   viewport, so the initial load isn't spending the main thread on the orbit,
+   cube and carousel while they're off-screen. */
+.work, .about, .contact { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 /* soft gradient separators between sections */
 .about, .experience, .capabilities, .contact, .craft { border-top: none; }
 .about::before, .experience::before, .capabilities::before, .contact::before, .craft::before {

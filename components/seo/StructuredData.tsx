@@ -42,7 +42,7 @@ export function StructuredData() {
       {
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
-        name: `${siteConfig.name} — ${siteConfig.shortTitle}`,
+        name: `${siteConfig.name}, ${siteConfig.shortTitle}`,
         url: siteUrl,
         inLanguage: ["es", "en"],
         description: siteConfig.description,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 function motionOn() {
   if (document.documentElement.dataset.motion === "off") return false;
@@ -13,39 +13,6 @@ function motionOn() {
 }
 function coarsePointer() {
   return window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-}
-
-/** Thin scroll-progress bar pinned to the top of the viewport. */
-function ScrollProgress() {
-  const ref = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    const bar = ref.current;
-    if (!bar) return;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const h = document.documentElement;
-      const max = h.scrollHeight - h.clientHeight;
-      const p = max > 0 ? h.scrollTop / max : 0;
-      bar.style.transform = "scaleX(" + p.toFixed(4) + ")";
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-  return (
-    <div className="scroll-progress" aria-hidden="true">
-      <span ref={ref} />
-    </div>
-  );
 }
 
 /** Magnetic CTAs + 3D tilt on project media (pointer-fine + motion only). */
@@ -115,5 +82,5 @@ function useMotionFx() {
 
 export function Fx() {
   useMotionFx();
-  return <ScrollProgress />;
+  return null;
 }

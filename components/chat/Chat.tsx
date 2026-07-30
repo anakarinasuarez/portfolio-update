@@ -42,7 +42,7 @@ POSITIONING
 EXPERIENCE
 - Evolution POS (Sep 2022–present): table-side ordering & payment for restaurants; token-based design system that brands a restaurant page in minutes; AI agent workflows with Claude Code. Outcomes: +23.1% revenue YoY, −40% customer wait times, −40% production bugs, +31.2% scalability.
 - Freelance Developer & AI Builder (2023–present): DeepFilm (deepfilm.ai) landing for an AI video platform; end-to-end client web products; personal AI/agent projects.
-- 10+ years earlier in finance & insurance — the origin of her business-outcome mindset.
+- 10+ years earlier in finance & insurance, the origin of her business-outcome mindset.
 
 SKILLS
 - AI & Agents: Claude Code, agent orchestration, custom workflows, prompt engineering, AI-assisted development.
@@ -74,30 +74,30 @@ const CHAT_COPY: Record<
     title: "Ana's Assistant",
     sub: "Ask anything · Book an interview",
     greeting:
-      "Hi! 👋 I'm Ana Karina's assistant. Ask me about her work, AI-agent experience or stack — or I can help you book an interview, video call or phone call with her.",
+      "Hi! 👋 I'm Ana Karina's assistant. Ask me about her work, AI-agent experience or stack, or I can help you book an interview, video call or phone call with her.",
     chips: ["What's her AI experience?", "Book a call or interview", "Tech stack?"],
     placeholder: "Type your message…",
     send: "Send",
     open: "Chat with Ana's assistant",
     confirm: "Confirm & send request to Ana",
-    booked: "Request ready — your email app will open so Ana receives the details. ✅",
+    booked: "Request ready, your email app will open so Ana receives the details. ✅",
     errorNoAPI: "The live assistant isn't available here. You can email Ana directly:",
-    error: "Sorry — something went wrong. You can also email Ana directly:",
+    error: "Sorry, something went wrong. You can also email Ana directly:",
     thinking: "Thinking…",
   },
   es: {
     title: "Asistente de Ana",
     sub: "Pregunta lo que quieras · Agenda una entrevista",
     greeting:
-      "¡Hola! 👋 Soy el asistente de Ana Karina. Pregúntame por su trabajo, su experiencia con agentes de IA o su stack — o te ayudo a agendar una entrevista, videollamada o llamada telefónica con ella.",
+      "¡Hola! 👋 Soy el asistente de Ana Karina. Pregúntame por su trabajo, su experiencia con agentes de IA o su stack, o te ayudo a agendar una entrevista, videollamada o llamada telefónica con ella.",
     chips: ["¿Qué experiencia tiene con IA?", "Agendar llamada o entrevista", "¿Su stack técnico?"],
     placeholder: "Escribe tu mensaje…",
     send: "Enviar",
     open: "Chatea con el asistente de Ana",
     confirm: "Confirmar y enviar solicitud a Ana",
-    booked: "Solicitud lista — se abrirá tu correo para que Ana reciba los detalles. ✅",
+    booked: "Solicitud lista, se abrirá tu correo para que Ana reciba los detalles. ✅",
     errorNoAPI: "El asistente en vivo no está disponible aquí. Puedes escribir a Ana directamente:",
-    error: "Lo siento — algo salió mal. También puedes escribir a Ana directamente:",
+    error: "Lo siento, algo salió mal. También puedes escribir a Ana directamente:",
     thinking: "Pensando…",
   },
 };
@@ -105,9 +105,9 @@ const CHAT_COPY: Record<
 function systemPrompt(lang: Lang) {
   const langLine = lang === "es" ? "Reply ONLY in Spanish." : "Reply ONLY in English.";
   return `You are the friendly, professional assistant on Ana Karina Suárez González's portfolio website. ${langLine}
-Keep replies concise (2–4 sentences), warm and confident. Use only the facts below — never invent details. If you don't know something, say you'll pass the question to Ana.
+Keep replies concise (2–4 sentences), warm and confident. Use only the facts below, never invent details. If you don't know something, say you'll pass the question to Ana.
 ${ASSISTANT_FACTS}
-SCHEDULING A MEETING: If the visitor wants to talk, meet or interview Ana, ask which format they prefer — an in-person interview, a video call, or a phone call. Collect, one or two at a time: (1) name, (2) email (and a phone number if they pick a phone call), (3) preferred date & time with timezone, (4) meeting format (interview / video call / phone call), (5) topic or role. Once you have ALL of these, confirm briefly and then append on a NEW LINE exactly:
+SCHEDULING A MEETING: If the visitor wants to talk, meet or interview Ana, ask which format they prefer: an in-person interview, a video call, or a phone call. Collect, one or two at a time: (1) name, (2) email (and a phone number if they pick a phone call), (3) preferred date & time with timezone, (4) meeting format (interview / video call / phone call), (5) topic or role. Once you have ALL of these, confirm briefly and then append on a NEW LINE exactly:
 BOOKING: {"name":"...","email":"...","datetime":"...","format":"...","topic":"..."}
 Output that BOOKING line only when everything is known. Never show the BOOKING line before then.`;
 }
@@ -137,7 +137,7 @@ export function Chat() {
 
   const mailtoFor = (b: Booking) => {
     const subject = encodeURIComponent(
-      `${b.format ? b.format + " request" : "Meeting request"} — ${b.name || "Portfolio visitor"}`
+      `${b.format ? b.format + " request" : "Meeting request"}: ${b.name || "Portfolio visitor"}`
     );
     const body = encodeURIComponent(
       `Name: ${b.name || ""}\nEmail: ${b.email || ""}\nFormat: ${b.format || ""}\nPreferred time: ${b.datetime || ""}\nTopic: ${b.topic || ""}\n\nSent from the portfolio assistant.`

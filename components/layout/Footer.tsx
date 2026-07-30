@@ -5,7 +5,6 @@ import { Arrow } from "@/components/ui/Arrow";
 import { Logo } from "@/components/ui/Logo";
 
 type FooterCopy = {
-  role: string;
   nav: ReadonlyArray<readonly [string, string]>;
   top: string;
   tag: string;
@@ -13,17 +12,15 @@ type FooterCopy = {
 
 const FOOTER_COPY: Record<Lang, FooterCopy> = {
   en: {
-    role: "Frontend Developer · UX/UI Designer · AI Engineer",
     nav: [
       ["Work", "#work"],
       ["About", "#about"],
       ["Contact", "#contact"],
     ],
     top: "Back to top",
-    tag: "Designed & built by Ana Karina — with a little help from AI agents.",
+    tag: "Designed & built by Ana Karina, with a little help from AI agents.",
   },
   es: {
-    role: "Desarrolladora Frontend · Diseñadora UX/UI · AI Engineer",
     nav: [
       ["Proyectos", "#work"],
       ["Sobre mí", "#about"],
@@ -42,11 +39,6 @@ export function Footer() {
       <div className="wrap footer-inner">
         <div className="footer-brand">
           <Logo />
-          <p>
-            Ana Karina Suárez González
-            <br />
-            <span>{c.role}</span>
-          </p>
         </div>
         <nav
           className="footer-nav"

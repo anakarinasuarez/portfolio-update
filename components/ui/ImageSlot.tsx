@@ -10,6 +10,8 @@ type ImageSlotProps = {
   shape?: "rect" | "square";
   priority?: boolean;
   sizes?: string;
+  /** next/image quality (defaults to 75). Bump for small, detailed slots. */
+  quality?: number;
   /** Decorative slots (hero floats) are hidden from assistive tech. */
   decorative?: boolean;
 };
@@ -28,6 +30,7 @@ export function ImageSlot({
   shape = "rect",
   priority = false,
   sizes = "(max-width: 768px) 90vw, 45vw",
+  quality,
   decorative = false,
 }: ImageSlotProps) {
   return (
@@ -42,6 +45,7 @@ export function ImageSlot({
           alt={decorative ? "" : (alt ?? placeholder ?? "")}
           fill
           sizes={sizes}
+          quality={quality}
           className="img-slot-img"
           priority={priority}
         />

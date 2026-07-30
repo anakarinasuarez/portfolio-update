@@ -165,18 +165,25 @@
 /* ===== DUALITY HERO — half design / half code ===== */
 .hero-dual { position: relative; overflow: hidden; text-align: center; display: flex; flex-direction: column; align-items: center;
   padding-top: clamp(104px, 13vh, 150px); padding-bottom: clamp(40px, 6vh, 72px); }
+/* Soft colour transition into the Selected work section: fade the hero's tinted
+   backdrop down to the base background so the boundary blends smoothly. */
+.hero-dual::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none;
+  height: clamp(120px, 18vh, 220px);
+  background: linear-gradient(180deg, transparent, var(--bg));
+}
 .hero-dual-inner { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; }
 
 /* Floema-style floating photos with 3D parallax */
-.hero-floats { position: absolute; inset: 0; z-index: 2; pointer-events: none; perspective: 1000px; }
+.hero-floats { position: absolute; inset: 0; z-index: 2; pointer-events: none; perspective: 900px; }
 .hero-float {
-  position: absolute; border-radius: 10px; overflow: hidden;
+  position: absolute; border-radius: 12px; overflow: hidden;
   border: 1px solid var(--line); background: var(--bg-2); pointer-events: auto;
-  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.7);
-  transform: translate3d(calc(var(--px, 0) * var(--d) * -46px), calc(var(--py, 0) * var(--d) * -46px), calc((var(--d) - 2.5) * 60px))
-             rotateY(calc(var(--px, 0) * 12deg)) rotateX(calc(var(--py, 0) * -12deg));
-  opacity: calc(1 - (var(--d) - 1) * 0.14);
-  filter: blur(calc((var(--d) - 1) * 0.7px)) brightness(calc(1 - (var(--d) - 1) * 0.06));
+  box-shadow: 0 46px 90px -32px rgba(0,0,0,0.9), 0 8px 24px -12px rgba(0,0,0,0.6);
+  transform: translate3d(calc(var(--px, 0) * var(--d) * -60px), calc(var(--py, 0) * var(--d) * -60px), calc((var(--d) - 2.5) * 88px))
+             rotateY(calc(var(--px, 0) * 15deg)) rotateX(calc(var(--py, 0) * -15deg));
+  opacity: calc(1 - (var(--d) - 1) * 0.16);
+  filter: blur(calc((var(--d) - 1) * 0.9px)) brightness(calc(1 - (var(--d) - 1) * 0.07));
   transition: box-shadow 0.4s var(--ease);
 }
 /* continuous idle drift for depth */
@@ -195,14 +202,14 @@ html.anim-frozen .hero-float-inner, [data-motion="off"] .hero-float-inner { anim
   background: linear-gradient(160deg, transparent 40%, rgba(8,6,10,0.35));
 }
 .hf-slot { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
-.hf-1 { width: clamp(90px, 10vw, 150px); height: clamp(120px, 13vw, 200px); top: 14%; left: 4%; }
-.hf-2 { width: clamp(80px, 8vw, 124px); height: clamp(100px, 10vw, 160px); top: 20%; right: 5%; }
-.hf-3 { width: clamp(90px, 9vw, 140px); height: clamp(70px, 7vw, 110px); bottom: 12%; left: 8%; }
-.hf-4 { width: clamp(80px, 8vw, 130px); height: clamp(100px, 11vw, 168px); bottom: 8%; right: 7%; }
-.hf-5 { width: clamp(70px, 7vw, 110px); height: clamp(90px, 9vw, 140px); top: 6%; left: 24%; }
-.hf-6 { width: clamp(64px, 6vw, 96px); height: clamp(80px, 8vw, 124px); top: 40%; left: 1%; }
-.hf-7 { width: clamp(72px, 7vw, 112px); height: clamp(56px, 6vw, 88px); top: 5%; right: 24%; }
-.hf-8 { width: clamp(66px, 6.5vw, 104px); height: clamp(84px, 9vw, 140px); top: 44%; right: 1%; }
+.hf-1 { width: clamp(118px, 13vw, 196px); height: clamp(158px, 17vw, 262px); top: 13%; left: 3%; }
+.hf-2 { width: clamp(104px, 10.5vw, 164px); height: clamp(132px, 13vw, 210px); top: 18%; right: 4%; }
+.hf-3 { width: clamp(118px, 11.8vw, 184px); height: clamp(92px, 9.2vw, 146px); bottom: 11%; left: 7%; }
+.hf-4 { width: clamp(104px, 10.5vw, 172px); height: clamp(132px, 14.5vw, 222px); bottom: 7%; right: 6%; }
+.hf-5 { width: clamp(92px, 9.2vw, 146px); height: clamp(118px, 11.8vw, 186px); top: 5%; left: 23%; }
+.hf-6 { width: clamp(84px, 8vw, 128px); height: clamp(106px, 10.5vw, 164px); top: 39%; left: 1%; }
+.hf-7 { width: clamp(96px, 9.2vw, 148px); height: clamp(74px, 8vw, 118px); top: 4%; right: 23%; }
+.hf-8 { width: clamp(88px, 8.6vw, 138px); height: clamp(110px, 11.8vw, 186px); top: 43%; right: 1%; }
 @media (max-width: 880px) { .hero-floats { display: none; } }
 
 .dual-bg { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
@@ -438,9 +445,8 @@ html.anim-frozen .sc-card { animation: none; }
 .ed-stage {
   position: relative; width: min(100%, 1080px); margin: 0 auto;
   padding-block: clamp(10px, 3vw, 34px);
-  display: flex; justify-content: center;
+  display: flex; flex-direction: column; align-items: center;
   animation: scIn 0.6s var(--ease);
-  --ed-cream: oklch(0.93 0.05 92);
 }
 html.anim-frozen .ed-stage { animation: none; }
 .ed-media {
@@ -452,33 +458,70 @@ html.anim-frozen .ed-stage { animation: none; }
 }
 .ed-media:hover { box-shadow: 0 44px 90px -40px rgba(0, 0, 0, 0.85); }
 .ed-media .sc-slot, .ed-media .sc-slides { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Every board uses the SAME fixed frame (see .ed-media width + aspect-ratio).
+   `contain` shows each board complete (no crop); the per-project backdrop set
+   inline on .ed-media blends the letterbox so it reads as one clean card. */
+.ed-media .sc-slot { background: transparent; }
+.ed-media .img-slot-img { object-fit: contain; transform: translateY(calc(-1 * var(--crop-top, 0px))); }
+/* Near-square boards fill the frame (cover) so they read as big as the rest. */
+.ed-media[data-fill="true"] .img-slot-img { object-fit: cover; }
+
+/* Prev / next buttons on the sides of the board — revealed on hover. */
+.ed-media-wrap { position: relative; width: min(100%, 880px); margin: 0 auto; }
+.ed-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+  width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+  cursor: pointer; color: #fff;
+  background: rgba(12, 10, 13, 0.55); border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity 0.3s var(--ease), background 0.3s var(--ease);
+}
+.ed-nav-prev { left: clamp(6px, 1.4vw, 16px); }
+.ed-nav-next { right: clamp(6px, 1.4vw, 16px); }
+.ed-media-wrap:hover .ed-nav, .ed-nav:focus-visible { opacity: 1; }
+.ed-nav:hover { background: rgba(12, 10, 13, 0.85); }
+@media (hover: none) { .ed-nav { display: none; } }
 .ed-media > *:first-child { transition: transform 0.4s var(--ease); }
 .ed-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(8,6,10,0.35), transparent 30%, transparent 70%, rgba(8,6,10,0.35)); pointer-events: none; }
 /* cursor-tracked sheen for a realistic glossy-print feel (set in JS) */
 .ed-glare { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; mix-blend-mode: overlay; transition: opacity 0.4s var(--ease); }
 [data-motion="off"] .ed-glare, html.anim-frozen .ed-glare { display: none; }
 
-.ed-title {
-  position: absolute; left: 50%; transform: translateX(-50%); z-index: 4;
+/* Project title — editorial grotesk (same lettering as the rest of the site),
+   sitting slightly OVER the top of the image (z-index + shadow) like before. */
+.ed-headline {
+  position: relative; z-index: 4; pointer-events: none;
   font-family: var(--font-grotesk); font-weight: 800; text-transform: uppercase;
-  letter-spacing: -0.02em; line-height: 0.86; text-align: center; white-space: nowrap;
-  font-size: clamp(28px, 6vw, 80px); color: var(--ed-cream);
-  width: max-content; max-width: 100%;
-  text-shadow: 0 8px 40px rgba(0,0,0,0.45); pointer-events: none;
+  letter-spacing: -0.02em; line-height: 0.9; text-align: center;
+  font-size: clamp(30px, 5.4vw, 66px);
+  color: var(--ed-cream, oklch(0.93 0.05 92));
+  /* dark drop for light/colored boards + a soft warm halo so the title still
+     reads with depth over near-black boards (Chef, DeepFilm) where a dark
+     shadow would be invisible. */
+  text-shadow: 0 4px 30px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9), 0 0 24px rgba(255,236,205,0.18);
+  margin-bottom: clamp(-18px, -1.5vw, -10px);
 }
-.ed-title-top { top: clamp(2px, 1vw, 18px); text-shadow: 0 4px 30px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8); }
-.ed-title-bot { bottom: clamp(2px, 1vw, 18px); text-shadow: 0 4px 30px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8); }
-/* stronger dark wash at the bottom so the lower title reads clearly */
-.ed-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(8,6,10,0.72), transparent 30%, transparent 55%, rgba(8,6,10,0.72)); pointer-events: none; }
-
-.ed-cap {
-  position: absolute; top: 50%; transform: translateY(-50%); z-index: 6; font-family: var(--font-mono); font-weight: 500; font-size: clamp(10.5px, 1vw, 12.5px);
-  letter-spacing: 0.14em; text-transform: uppercase; color: #fff; line-height: 1.65;
-  width: max-content; max-width: clamp(96px, 13vw, 168px);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 2px 14px rgba(0,0,0,0.85); pointer-events: none;
+/* Marketing hook + role + tags sit BELOW the image. */
+.ed-sub {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(15px, 1.9vw, 21px); line-height: 1.45; color: var(--text-dim);
+  text-align: center; text-wrap: balance; max-width: 52ch;
 }
-.ed-cap-l { left: 0; text-align: left; }
-.ed-cap-r { right: 0; text-align: right; }
+[data-direction="mono"] .ed-sub { font-family: var(--font-sans); font-style: normal; }
+.ed-meta {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 10px; margin-top: clamp(20px, 3vw, 32px); max-width: 640px;
+}
+.ed-meta-role {
+  font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent-bright);
+}
+.ed-meta-tags { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 2px; }
+.ed-meta-tags li {
+  font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
+  border: 1px solid var(--line); border-radius: 100px; padding: 5px 12px;
+}
+[data-direction="mono"] .ed-meta-tags li { border-radius: 6px; }
 
 .ed-foot { display: flex; align-items: stretch; justify-content: center; gap: 10px; margin-top: 30px; z-index: 3; position: relative; }
 .ed-logo { display: inline-flex; align-items: center; padding: 0 22px; border-radius: 14px; background: var(--bg-3); border: 1px solid var(--line); font-family: var(--font-grotesk); font-weight: 700; font-size: 22px; color: var(--text); text-transform: lowercase; }
@@ -493,8 +536,7 @@ html.anim-frozen .ed-stage { animation: none; }
 .ed-resource:hover { transform: translateY(-2px); background: oklch(0.9 0.13 155); }
 
 @media (max-width: 640px) {
-  .ed-title { font-size: clamp(26px, 9vw, 52px); }
-  .ed-cap { max-width: 11ch; }
+  .ed-meta-title { font-size: clamp(22px, 6vw, 30px); }
 }
 
 /* browser-window screen */
@@ -530,7 +572,7 @@ html.anim-frozen .sc-slide { transition: none; }
 .sc-cta { align-self: flex-start; margin-top: 26px; }
 
 /* navigation */
-.sc-nav { display: flex; align-items: center; gap: 24px; margin-top: clamp(28px, 4vw, 48px); flex-wrap: wrap; justify-content: center; }
+.sc-nav { display: flex; align-items: center; gap: 24px; margin-top: clamp(10px, 1.6vw, 20px); flex-wrap: wrap; justify-content: center; }
 .sc-dots { display: flex; align-items: center; gap: 12px; }
 .sc-pdot { position: relative; width: 10px; height: 10px; border-radius: 50%; border: none; padding: 0; cursor: pointer; background: var(--line); overflow: hidden; transition: background 0.3s, width 0.4s var(--ease); }
 .sc-pdot:hover { background: var(--text-faint); }
@@ -619,14 +661,15 @@ html.anim-frozen .sc-thumb-bar, [data-motion="off"] .sc-thumb-bar { display: non
 
 /* ---------------- ABOUT ---------------- */
 .about { border-top: 1px solid var(--line-soft); overflow-x: clip; }
-.about-grid { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: clamp(28px, 3vw, 56px); align-items: center; }
+.about-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 3vw, 56px); align-items: center; }
 .about-left { align-self: center; }
-.about-orbit { display: flex; justify-content: center; align-items: center; min-width: 0; }
+.about-orbit { display: flex; justify-content: flex-end; align-items: center; min-width: 0; }
 .cap-orbit.in-about {
   width: min(100%, 640px); height: min(98vw, 640px);
   --r: min(31vw, 248px);
+  margin-right: clamp(-64px, -4.5vw, 0px); /* nudge the orbit toward the right edge */
 }
-.about-p { color: var(--text-dim); font-size: 18px; line-height: 1.7; margin-bottom: 22px; max-width: 54ch; }
+.about-p { color: var(--text-dim); font-size: 18px; line-height: 1.75; margin-bottom: 28px; max-width: 58ch; }
 .about-p b { color: var(--text); font-weight: 600; }
 .about-cta { margin-top: 16px; }
 .pillars-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); margin-top: clamp(56px, 8vw, 96px); }
@@ -756,30 +799,53 @@ html.anim-frozen .proc-panel { animation: none; }
   grid-area: 1 / 1; position: relative;
   transform-style: preserve-3d; animation: cubespin 16s linear infinite;
 }
-.cap-orbit:hover .cube3d { animation-play-state: paused; }
+/* The cube only pauses when the pointer is over the cube itself — hovering the
+   skill badges leaves it spinning. */
+.orbit-center:hover .cube3d { animation-play-state: paused; }
 html.anim-frozen .cube3d, [data-motion="off"] .cube3d { animation: none; transform: rotateX(-18deg) rotateY(-26deg); }
 @keyframes cubespin {
   from { transform: rotateX(-18deg) rotateY(0deg); }
   to { transform: rotateX(-18deg) rotateY(360deg); }
 }
 .cube-face {
-  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  text-align: center; padding: clamp(14px, 1.8vw, 22px);
-  background: color-mix(in oklab, var(--tool, var(--accent)) 16%, var(--bg-2));
-  border: 1px solid color-mix(in oklab, var(--tool, var(--accent)) 55%, transparent);
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: clamp(16px, 2vw, 24px);
+  background: color-mix(in oklab, var(--tool, var(--accent)) 18%, var(--bg-2));
+  border: 1px solid color-mix(in oklab, var(--tool, var(--accent)) 40%, transparent);
   --s: clamp(75px, 9vw, 105px);
-  box-shadow: inset 0 0 50px color-mix(in oklab, var(--tool, var(--accent)) 20%, transparent);
+  /* top edge highlight + bottom inner shadow → solid, lit material */
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--tool, var(--accent)) 48%, transparent),
+              inset 0 -44px 60px rgba(0,0,0,0.42);
+  backface-visibility: hidden;
   transition: background 0.5s var(--ease), border-color 0.5s;
 }
-.cf-cat { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: color-mix(in oklab, var(--tool, var(--accent)) 72%, #fff); }
-.cf-key { font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(20px, 2.4vw, 30px); letter-spacing: var(--display-tracking); line-height: 1; color: #fff; }
-.cf-desc { font-size: clamp(10px, 1.1vw, 12.5px); line-height: 1.45; color: rgba(255,255,255,0.9); }
+.cf-label { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.cf-lv { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: color-mix(in oklab, var(--tool, var(--accent)) 58%, #fff); }
+.cf-key { font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(18px, 2.1vw, 26px); letter-spacing: var(--display-tracking); line-height: 1; color: #fff; }
+.cf-kw { font-family: var(--font-mono); font-size: clamp(11px, 1.3vw, 15px); letter-spacing: 0.03em; line-height: 1.25; text-wrap: balance; color: color-mix(in oklab, var(--tool, var(--accent)) 80%, #fff); }
+/* Lid + base: the skill icon, desaturated to B&W with a raised, embossed relief. */
+.cf-emblem { display: grid; place-items: center; width: 100%; height: 100%; }
+/* The lid/base faces are rotated in 3D, which flips their content upside-down
+   from the viewer — spin the emblem back so the logo always reads upright. */
+.cf-top .cf-emblem { transform: rotate(180deg); }
+.cf-emblem-logo {
+  width: 48%; height: auto; object-fit: contain;
+  filter: grayscale(1) brightness(1.5) opacity(0.62)
+          drop-shadow(0 1.5px 0 rgba(0,0,0,0.6)) drop-shadow(0 -1px 0 rgba(255,255,255,0.22));
+}
+.cf-emblem-mono {
+  font-family: var(--font-mono); font-weight: 600; font-size: clamp(26px, 4vw, 42px);
+  color: rgba(255,255,255,0.5);
+  text-shadow: 0 1.5px 0 rgba(0,0,0,0.6), 0 -1px 0 rgba(255,255,255,0.22);
+}
+/* Front + back carry the label; sides + lid are plain shaded panels so the box
+   reads as a solid, realistically-lit object (light hits the top, sides recede). */
 .cf-front  { transform: translateZ(var(--s)); }
 .cf-back   { transform: rotateY(180deg) translateZ(var(--s)); }
-.cf-right  { transform: rotateY(90deg) translateZ(var(--s)); background: color-mix(in oklab, var(--tool, var(--accent)) 12%, var(--bg-2)); }
-.cf-left   { transform: rotateY(-90deg) translateZ(var(--s)); background: color-mix(in oklab, var(--tool, var(--accent)) 12%, var(--bg-2)); }
-.cf-top    { transform: rotateX(90deg) translateZ(var(--s)); background: color-mix(in oklab, var(--tool, var(--accent)) 32%, var(--bg-2)); }
-.cf-bottom { transform: rotateX(-90deg) translateZ(var(--s)); background: color-mix(in oklab, var(--tool, var(--accent)) 6%, var(--bg-2)); }
+.cf-right  { transform: rotateY(90deg) translateZ(var(--s)); background: color-mix(in oklab, var(--tool, var(--accent)) 9%, var(--bg-3)); }
+.cf-left   { transform: rotateY(-90deg) translateZ(var(--s)); background: color-mix(in oklab, var(--tool, var(--accent)) 9%, var(--bg-3)); }
+.cf-top    { transform: rotateX(90deg) translateZ(var(--s)); background: color-mix(in oklab, var(--tool, var(--accent)) 34%, var(--bg-2)); }
+.cf-bottom { transform: rotateX(-90deg) translateZ(var(--s)); background: color-mix(in oklab, #000 82%, var(--bg-2)); }
 /* content overlaid inside the box, not rotating */
 .orbit-caption { grid-area: 1 / 1; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; width: min(66%, 200px); text-align: center; }
 .orbit-center-cat { grid-area: 1 / 1; z-index: 3; align-self: start; justify-self: center; margin-top: clamp(38px, 5vw, 56px); }
@@ -797,7 +863,7 @@ html.anim-frozen .cube3d, [data-motion="off"] .cube3d { animation: none; transfo
 .orbit-item {
   position: absolute; top: 50%; left: 50%;
   transform: rotate(var(--a)) translate(var(--r)) rotate(calc(-1 * var(--a)));
-  margin: -44px 0 0 -44px; /* half badge ring */
+  margin: calc(var(--bsz, 88px) / -2) 0 0 calc(var(--bsz, 88px) / -2); /* half badge ring */
 }
 .orbit-item .cap-badge { animation: orbitspin 46s linear infinite reverse; }
 .cap-orbit:hover .orbit-rotor, .cap-orbit:hover .orbit-item .cap-badge { animation-play-state: paused; }
@@ -808,10 +874,10 @@ html.anim-frozen .orbit-rotor, html.anim-frozen .orbit-item .cap-badge,
 /* circular logo badge */
 .cap-badge {
   position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px;
-  width: 88px; padding: 0; border: none; background: none; cursor: pointer;
+  width: var(--bsz, 88px); padding: 0; border: none; background: none; cursor: pointer;
 }
 .cap-badge-ring {
-  position: relative; width: 88px; height: 88px; border-radius: 50%;
+  position: relative; width: var(--bsz, 88px); height: var(--bsz, 88px); border-radius: 50%;
   display: grid; place-items: center; background: var(--bg-2); border: 1px solid var(--line);
   transition: transform 0.35s var(--ease), border-color 0.35s, box-shadow 0.35s var(--ease), background 0.35s;
 }
@@ -906,8 +972,15 @@ html.anim-frozen .orbit-rotor, html.anim-frozen .orbit-item .cap-badge,
   .tile-tall { grid-column: span 1; grid-row: span 2; }
   .tile-md { grid-column: span 1; grid-row: span 2; }
   .about-grid, .cap-grid { grid-template-columns: 1fr; }
-  .about-orbit { order: -1; }
-  .cap-orbit.in-about { --r: min(36vw, 200px); width: min(92vw, 520px); height: min(92vw, 520px); }
+  .about-orbit { order: -1; justify-content: center; }
+  /* Small screens: shrink the badges + radius so the 14 icons never overlap. */
+  .cap-orbit.in-about {
+    --bsz: 46px; --r: min(38vw, 140px);
+    width: min(94vw, 420px); height: min(94vw, 420px); margin-right: 0;
+  }
+  .cap-orbit.in-about .cap-badge-logo { width: 24px; height: 24px; }
+  .cap-orbit.in-about .cap-badge-mono { font-size: 16px; }
+  .cap-orbit.in-about .cube3d { width: clamp(120px, 34vw, 160px); height: clamp(120px, 34vw, 160px); }
   .job { grid-template-columns: 1fr; gap: 18px; }
   .about-left, .cap-left { position: static; }
   .cap-orbit { --r: min(40vw, 230px); width: min(96vw, 560px); height: min(96vw, 560px); }

@@ -54,15 +54,15 @@ const ABOUT_COPY: Record<Lang, AboutCopy> = {
   en: {
     eyebrow: "About",
     title: <>I turn ideas into products<br />that <span className="serif-em">move the numbers</span>.</>,
-    lead: <>Designer <b>and</b> developer — a rare full-stack profile that takes a product from the first sketch to the shipped, tested interface. No handoff gaps. No lost intent. Just outcomes.</>,
+    lead: <>Designer <b>and</b> developer, a rare full-stack profile that takes a product from the first sketch to the shipped, tested interface. No handoff gaps. No lost intent. Just outcomes.</>,
     sub: <>A decade in finance &amp; insurance taught me to chase the metric that matters. Now I bring that lens to digital products, using <span className="text-accent">AI-accelerated workflows</span> to ship faster without cutting corners on craft.</>,
     cta: "Let's build something",
     stepsLabel: "How we'd work together",
     steps: [
-      { k: "Discover", t: "I dig into your users, your market and — above all — the business goal. Every pixel later traces back to a number here.", tag: "Research · Strategy" },
+      { k: "Discover", t: "I dig into your users, your market and, above all, the business goal. Every pixel later traces back to a number here.", tag: "Research · Strategy" },
       { k: "Design", t: "Flows, wireframes and a polished UI in Figma, backed by a scalable design system your team can grow with.", tag: "UX/UI · Design Systems" },
-      { k: "Build", t: "Production-grade front-end in React & Next.js — accessible, responsive, fast. Designed and coded by the same person.", tag: "React · Next.js · TypeScript" },
-      { k: "Scale", t: "AI-accelerated workflows automate the busywork so we ship faster and iterate more — with human judgment always in the loop.", tag: "AI workflows · Automation" },
+      { k: "Build", t: "Production-grade front-end in React & Next.js, accessible, responsive, fast. Designed and coded by the same person.", tag: "React · Next.js · TypeScript" },
+      { k: "Scale", t: "AI-accelerated workflows automate the busywork so we ship faster and iterate more, with human judgment always in the loop.", tag: "AI workflows · Automation" },
     ],
     stats: [
       { value: 3, suffix: "+", label: "Years shipping production product" },
@@ -74,15 +74,15 @@ const ABOUT_COPY: Record<Lang, AboutCopy> = {
   es: {
     eyebrow: "Sobre mí",
     title: <>Convierto ideas en productos<br />que <span className="serif-em">mueven los números</span>.</>,
-    lead: <>Diseñadora <b>y</b> desarrolladora — un perfil full-stack poco común que lleva un producto del primer boceto a la interfaz lanzada y testeada. Sin saltos en el traspaso. Sin perder la intención. Solo resultados.</>,
+    lead: <>Diseñadora <b>y</b> desarrolladora, un perfil full-stack poco común que lleva un producto del primer boceto a la interfaz lanzada y testeada. Sin saltos en el traspaso. Sin perder la intención. Solo resultados.</>,
     sub: <>Una década en finanzas y seguros me enseñó a perseguir la métrica que importa. Hoy llevo esa mirada a los productos digitales, usando <span className="text-accent">flujos acelerados con IA</span> para lanzar más rápido sin sacrificar el detalle.</>,
     cta: "Construyamos algo",
     stepsLabel: "Cómo trabajaríamos juntos",
     steps: [
-      { k: "Descubrir", t: "Investigo a tus usuarios, tu mercado y — sobre todo — el objetivo de negocio. Cada píxel después nace de un número de aquí.", tag: "Investigación · Estrategia" },
+      { k: "Descubrir", t: "Investigo a tus usuarios, tu mercado y, sobre todo, el objetivo de negocio. Cada píxel después nace de un número de aquí.", tag: "Investigación · Estrategia" },
       { k: "Diseñar", t: "Flujos, wireframes y una UI cuidada en Figma, con un sistema de diseño escalable con el que tu equipo puede crecer.", tag: "UX/UI · Sistemas de diseño" },
-      { k: "Construir", t: "Front-end de producción en React y Next.js — accesible, responsive y rápido. Diseñado y programado por la misma persona.", tag: "React · Next.js · TypeScript" },
-      { k: "Escalar", t: "Flujos acelerados con IA automatizan lo repetitivo para lanzar más rápido e iterar más — con criterio humano siempre en el bucle.", tag: "Flujos con IA · Automatización" },
+      { k: "Construir", t: "Front-end de producción en React y Next.js, accesible, responsive y rápido. Diseñado y programado por la misma persona.", tag: "React · Next.js · TypeScript" },
+      { k: "Escalar", t: "Flujos acelerados con IA automatizan lo repetitivo para lanzar más rápido e iterar más, con criterio humano siempre en el bucle.", tag: "Flujos con IA · Automatización" },
     ],
     stats: [
       { value: 3, suffix: "+", label: "Años lanzando producto en producción" },

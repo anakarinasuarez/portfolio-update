@@ -2,15 +2,10 @@
    Motion FX styles — scroll progress, masked reveals, tilt easing
    ============================================================ */
 
-.scroll-progress {
-  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 9600;
-  pointer-events: none; background: transparent;
-}
-.scroll-progress span {
-  display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: 0 50%;
-  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
-  will-change: transform;
-}
+/* Scroll-progress bar permanently removed (component deleted from Fx). This
+   force-hides any `.scroll-progress` element so the top light bar can never
+   render again, even from a cached build. */
+.scroll-progress { display: none !important; }
 
 /* Smooth easing for JS-driven transforms */
 .proj-media { transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); transform-style: preserve-3d; }
