@@ -114,7 +114,10 @@ export default function RootLayout({
       data-motion="on"
       className={`${serif.variable} ${sans.variable} ${mono.variable} ${grotesk.variable}`}
     >
-      <body>
+      {/* suppressHydrationWarning: browser extensions (e.g. ColorZilla) add
+          attributes like `cz-shortcut-listen` to <body> before React hydrates,
+          which is harmless but triggers a dev-only hydration warning. */}
+      <body suppressHydrationWarning>
         {/* Without JS the scroll-reveal never runs — force content visible. */}
         <noscript>
           <style>{`.reveal,.reveal-rise .rise-inner{opacity:1!important;transform:none!important;filter:none!important}`}</style>

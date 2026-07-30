@@ -202,14 +202,17 @@ html.anim-frozen .hero-float-inner, [data-motion="off"] .hero-float-inner { anim
   background: linear-gradient(160deg, transparent 40%, rgba(8,6,10,0.35));
 }
 .hf-slot { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
-.hf-1 { width: clamp(118px, 13vw, 196px); height: clamp(158px, 17vw, 262px); top: 13%; left: 3%; }
-.hf-2 { width: clamp(104px, 10.5vw, 164px); height: clamp(132px, 13vw, 210px); top: 18%; right: 4%; }
-.hf-3 { width: clamp(118px, 11.8vw, 184px); height: clamp(92px, 9.2vw, 146px); bottom: 11%; left: 7%; }
-.hf-4 { width: clamp(104px, 10.5vw, 172px); height: clamp(132px, 14.5vw, 222px); bottom: 7%; right: 6%; }
-.hf-5 { width: clamp(92px, 9.2vw, 146px); height: clamp(118px, 11.8vw, 186px); top: 5%; left: 23%; }
-.hf-6 { width: clamp(84px, 8vw, 128px); height: clamp(106px, 10.5vw, 164px); top: 39%; left: 1%; }
-.hf-7 { width: clamp(96px, 9.2vw, 148px); height: clamp(74px, 8vw, 118px); top: 4%; right: 23%; }
-.hf-8 { width: clamp(88px, 8.6vw, 138px); height: clamp(110px, 11.8vw, 186px); top: 43%; right: 1%; }
+/* Show the whole floating image (fit inside the frame) instead of cropping it. */
+.hf-slot .img-slot-img { object-fit: contain; padding: 6px; }
+/* Landscape frames (~1.5) so the whole horizontal screenshot fits with `contain`. */
+.hf-1 { width: clamp(148px, 15vw, 232px); height: clamp(98px, 10vw, 154px); top: 12%; left: 3%; }
+.hf-2 { width: clamp(132px, 13vw, 208px); height: clamp(88px, 8.7vw, 138px); top: 16%; right: 4%; }
+.hf-3 { width: clamp(140px, 14vw, 220px); height: clamp(92px, 9.3vw, 146px); bottom: 12%; left: 6%; }
+.hf-4 { width: clamp(134px, 13.4vw, 212px); height: clamp(90px, 8.9vw, 140px); bottom: 8%; right: 5%; }
+.hf-5 { width: clamp(120px, 12vw, 188px); height: clamp(80px, 8vw, 124px); top: 5%; left: 22%; }
+.hf-6 { width: clamp(108px, 10.8vw, 168px); height: clamp(72px, 7.2vw, 112px); top: 40%; left: 1%; }
+.hf-7 { width: clamp(120px, 12vw, 190px); height: clamp(80px, 8vw, 126px); top: 4%; right: 22%; }
+.hf-8 { width: clamp(116px, 11.6vw, 182px); height: clamp(78px, 7.7vw, 120px); top: 44%; right: 1%; }
 @media (max-width: 880px) { .hero-floats { display: none; } }
 
 .dual-bg { position: absolute; inset: 0; z-index: 1; pointer-events: none; }

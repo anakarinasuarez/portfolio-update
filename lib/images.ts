@@ -16,10 +16,16 @@ export const IMAGES = {
     readeasily: "/images/read-easy.webp", // case study board de la app
   },
 
-  // Fotos flotantes decorativas del hero (se reciclan; el orden no importa).
+  // Fotos flotantes decorativas del hero — una distinta por marco (8): mezcla de
+  // capturas de proyectos, diseño (Figma) y código.
   floats: [
-    "/images/image-3.webp",
+    "/images/code.webp",
+    "/images/read-easy.webp",
+    "/images/value.webp",
+    "/images/evolution-pos.webp",
     "/images/claude-figma.webp",
     "/images/chef-at-home.webp",
+    "/images/deepfilm-collage.webp",
+    "/images/image-3.webp",
   ],
 } as const;

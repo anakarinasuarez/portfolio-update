@@ -56,7 +56,7 @@ const SKILLS: SkillEntry[] = [
     { en: ["Semantic", "Accessible", "ARIA", "WCAG", "SEO ready", "Maintainable"], es: ["Semántico", "Accesible", "ARIA", "WCAG", "Listo para SEO", "Mantenible"] }],
   ["CSS3", { en: "Scalable, mobile-first, system-driven interfaces.", es: "Interfaces escalables, mobile-first y por sistema." }, { slug: "css", color: "663399" }, FRONTEND, EXPERT,
     { en: ["Mobile-first", "Flexbox", "Grid", "Design tokens", "Animations", "Scalable"], es: ["Mobile-first", "Flexbox", "Grid", "Design tokens", "Animaciones", "Escalable"] }],
-  ["Zustand", { en: "Minimal, fast global state for React.", es: "Estado global mínimo y rápido en React." }, { src: "/icons/zustand.png", color: "A9743F" }, FRONTEND, PROFICIENT,
+  ["Zustand", { en: "Minimal, fast global state for React.", es: "Estado global mínimo y rápido en React." }, { src: "/icons/zustand.webp", color: "A9743F" }, FRONTEND, PROFICIENT,
     { en: ["Global state", "Minimal", "Fast", "No boilerplate", "Simple API", "React"], es: ["Estado global", "Mínimo", "Rápido", "Sin boilerplate", "API simple", "React"] }],
   ["GitHub", { en: "PR-based collaboration with reviews and CI.", es: "Colaboración por PRs con reviews y CI." }, { slug: "github", color: "FFFFFF" }, WORKFLOW, EXPERT,
     { en: ["Pull Requests", "Code reviews", "Automated CI", "Testing", "Collaboration", "Clean history"], es: ["Pull Requests", "Code reviews", "CI automatizado", "Testing", "Colaboración", "Historial limpio"] }],
