@@ -841,6 +841,11 @@ html.anim-frozen .cube3d, [data-motion="off"] .cube3d { animation: none; transfo
   color: rgba(255,255,255,0.5);
   text-shadow: 0 1.5px 0 rgba(0,0,0,0.6), 0 -1px 0 rgba(255,255,255,0.22);
 }
+/* Soft fade when the active skill changes, so the cube content doesn't snap. */
+@keyframes cfIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.cf-label, .cf-emblem { animation: cfIn 0.45s var(--ease); }
+[data-motion="off"] .cf-label, [data-motion="off"] .cf-emblem,
+html.anim-frozen .cf-label, html.anim-frozen .cf-emblem { animation: none; }
 /* Front + back carry the label; sides + lid are plain shaded panels so the box
    reads as a solid, realistically-lit object (light hits the top, sides recede). */
 .cf-front  { transform: translateZ(var(--s)); }
@@ -1001,4 +1006,64 @@ html.anim-frozen .orbit-rotor, html.anim-frozen .orbit-item .cap-badge,
   .stats-row { grid-template-columns: 1fr 1fr; }
   .footer-inner { flex-direction: column; }
   .footer-bottom { flex-direction: column; gap: 6px; }
+}
+
+/* ---------------- CASE STUDY PAGE ---------------- */
+.case { background: var(--bg-2); padding-top: clamp(96px, 13vh, 140px); padding-bottom: clamp(60px, 10vh, 120px); }
+.case-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: clamp(24px, 4vw, 40px); }
+.case-back { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em; color: var(--text-dim); transition: color 0.25s; }
+.case-back:hover { color: var(--text); }
+.case-kind { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+
+.case-hero { border-bottom: 1px solid var(--line-soft); padding-bottom: clamp(28px, 4vw, 44px); }
+.case-title { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1; font-size: clamp(44px, 9vw, 104px); }
+.case-tagline { color: var(--text-dim); font-size: clamp(17px, 2vw, 22px); margin-top: 14px; max-width: 42ch; }
+.case-meta { list-style: none; display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 56px); margin-top: clamp(24px, 3vw, 36px); }
+.case-meta li { display: flex; flex-direction: column; gap: 4px; font-size: 15px; color: var(--text); }
+.case-meta li span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+
+.case-h { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); font-size: clamp(26px, 3.4vw, 40px); line-height: 1.05; }
+.case-overview { margin-top: clamp(40px, 6vw, 72px); }
+.case-lead { color: var(--text-dim); font-size: clamp(17px, 1.7vw, 20px); line-height: 1.75; margin-top: 18px; max-width: 68ch; }
+
+.case-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.5vw, 36px); margin-top: clamp(40px, 6vw, 72px); }
+.case-metric { border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); padding: clamp(20px, 2.6vw, 30px); }
+[data-direction="mono"] .case-metric { border-radius: 8px; }
+.cm-val { display: block; font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(30px, 4.4vw, 52px); line-height: 1; color: var(--accent-bright); letter-spacing: -0.01em; }
+.cm-label { display: block; margin-top: 10px; font-size: 14.5px; color: var(--text-dim); line-height: 1.4; }
+
+.case-flow { margin-top: clamp(56px, 9vw, 108px); }
+.case-flow-sub { color: var(--text-dim); font-size: 16px; margin-top: 10px; max-width: 52ch; }
+.case-steps { display: flex; flex-direction: column; gap: clamp(40px, 7vw, 96px); margin-top: clamp(36px, 5vw, 64px); }
+.case-step { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.case-step:nth-child(even) .cs-shot { order: 2; }
+/* Phone-only shots (transparent corners) — just the device, with a soft shadow. */
+.cs-shot {
+  position: relative; width: min(100%, 272px); aspect-ratio: 611 / 1278; margin: 0 auto;
+  filter: drop-shadow(0 40px 55px rgba(0, 0, 0, 0.5));
+}
+.cs-img { object-fit: contain; }
+.cs-n { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.16em; color: var(--accent-bright); }
+.cs-title { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); font-size: clamp(24px, 3vw, 36px); line-height: 1.05; margin-top: 10px; }
+.cs-text { color: var(--text-dim); font-size: clamp(15.5px, 1.5vw, 18px); line-height: 1.65; margin-top: 14px; max-width: 40ch; }
+
+.case-ds { margin-top: clamp(56px, 9vw, 108px); }
+.case-ds-lead { max-width: 74ch; margin-top: 16px; }
+
+.case-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; margin-top: clamp(64px, 9vw, 112px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line-soft); }
+.case-tags { display: flex; flex-direction: column; gap: 12px; }
+.case-tags-l { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+.case-tags ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.case-tags li { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); border: 1px solid var(--line); border-radius: 100px; padding: 6px 14px; }
+[data-direction="mono"] .case-tags li { border-radius: 6px; }
+.case-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+@media (max-width: 720px) {
+  .case-metrics { grid-template-columns: 1fr; }
+  .case-step { grid-template-columns: 1fr; gap: 22px; }
+  .case-step:nth-child(even) .cs-shot { order: 0; }
+  .cs-copy { text-align: center; }
+  .cs-text { margin-left: auto; margin-right: auto; }
+  .case-ds { grid-template-columns: 1fr; }
+  .case-foot { flex-direction: column; align-items: flex-start; }
 }

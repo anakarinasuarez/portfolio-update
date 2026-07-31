@@ -36,8 +36,8 @@ const WORKFLOW = { en: "Workflow", es: "Flujo de trabajo" };
 const DEVOPS = { en: "DevOps", es: "DevOps" };
 
 const SKILLS: SkillEntry[] = [
-  ["Claude", { en: "AI-accelerated development with custom agents, rules and skills.", es: "Desarrollo acelerado con IA mediante agentes, reglas y skills." }, { slug: "claude", color: "D97757" }, AI, EXPERT,
-    { en: ["AI-accelerated", "Custom agents", "Skills and rules", "Automation", "Faster delivery", "Production-grade"], es: ["Acelerado con IA", "Agentes a medida", "Skills y reglas", "Automatización", "Entrega más rápida", "Calidad producción"] }],
+  ["Agents", { en: "AI-accelerated development with custom agents and automated workflows.", es: "Desarrollo acelerado con IA mediante agentes y flujos automatizados." }, { slug: "ai", color: "A78BFA" }, AI, EXPERT,
+    { en: ["AI-accelerated", "Custom agents", "Agent workflows", "Automation", "Faster delivery", "Production-grade"], es: ["Acelerado con IA", "Agentes a medida", "Flujos con agentes", "Automatización", "Entrega más rápida", "Calidad producción"] }],
   ["React", { en: "Component-driven apps with hooks and Server Components.", es: "Apps por componentes con hooks y Server Components." }, { slug: "react", color: "61DAFB" }, FRONTEND, EXPERT,
     { en: ["Components", "Custom hooks", "Zustand state", "Server Components", "React 19", "Reusable UI"], es: ["Componentes", "Custom hooks", "Estado Zustand", "Server Components", "React 19", "UI reutilizable"] }],
   ["Next.js", { en: "Fullstack App Router apps with SEO-first performance.", es: "Apps fullstack con App Router y rendimiento SEO-first." }, { slug: "nextdotjs", color: "FFFFFF" }, FRONTEND, EXPERT,
@@ -84,7 +84,7 @@ export function SkillsOrbit() {
             return (
               <span className={"cube-face " + f} key={f}>
                 {isLid ? (
-                  <span className="cf-emblem">
+                  <span className="cf-emblem" key={active}>
                     {ic.slug || ic.src ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img className="cf-emblem-logo" src={ic.src ?? "/icons/" + ic.slug + ".svg"} alt="" width={64} height={64} />
@@ -93,7 +93,7 @@ export function SkillsOrbit() {
                     )}
                   </span>
                 ) : (
-                  <span className="cf-label">
+                  <span className="cf-label" key={active}>
                     <span className="cf-lv">{SKILLS[active][4][lang]}</span>
                     <span className="cf-key">{SKILLS[active][0]}</span>
                     <span className="cf-kw">{SKILLS[active][5][lang][i]}</span>

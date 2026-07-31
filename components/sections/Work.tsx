@@ -24,6 +24,8 @@ interface Project {
   github?: string;
   /** Case-study document (PDF under /public) for projects without a live URL. */
   caseUrl?: string;
+  /** Internal case-study page (opens in-site, not a new tab). */
+  caseHref?: string;
   /** Screenshot under /public/images — omit to show the branded placeholder. */
   img?: string;
   /** Backdrop color behind the board (fallback while the image loads). */
@@ -80,7 +82,7 @@ const PROJECTS: Project[] = [
   },
   {
     n: "02", title: "Evolution POS",
-    caseUrl: "/docs/evolution-pos-rediseno.pdf",
+    caseHref: "/proyectos/evolution-pos",
     img: IMAGES.work.evopos, bg: "#4a9b76", ratio: 2880 / 1708,
     head: { en: ["RESTAURANTS,", "REENGINEERED"], es: ["RESTAURANTES,", "REINVENTADOS"] },
     tagline: { en: "Tables that turn faster and spend more, order & pay in seconds.", es: "Mesas que rotan más rápido y gastan más, pedir y pagar en segundos." },
@@ -178,6 +180,20 @@ export function Work() {
   const [open, setOpen] = useState(false);
   const timer = useRef<number | null>(null);
   const N = PROJECTS.length;
+
+  // Arriving from a project's case-study page (e.g. /?project=evolution-pos)
+  // re-opens that project's modal so "back" feels continuous.
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search).get("project");
+    if (!p) return;
+    const i = PROJECTS.findIndex((pr) => pr.caseHref === "/proyectos/" + p);
+    if (i >= 0) {
+      setIdx(i);
+      setOpen(true);
+      window.history.replaceState(null, "", "/#work");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const restart = () => {
     if (timer.current !== null) window.clearInterval(timer.current);
@@ -351,6 +367,12 @@ function Lightbox({ p, cc, labels, onClose }: { p: Project; cc: ProjectContent; 
             <div className="pg-links">
               {p.href && (
                 <a className="btn btn-primary pg-link" href={p.href} target="_blank" rel="noreferrer">{labels.visit} <Arrow /></a>
+              )}
+              {p.caseHref && (
+                <a className={"btn pg-link " + (p.href ? "btn-ghost" : "btn-primary")} href={p.caseHref}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 2.75h7l5 5V20.5a.75.75 0 0 1-.75.75H6.75A.75.75 0 0 1 6 20.5v-17A.75.75 0 0 1 6.75 2.75z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/><path d="M13 2.75V7.75h5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
+                  {labels.view} <Arrow />
+                </a>
               )}
               {p.caseUrl && (
                 <a className={"btn pg-link " + (p.href ? "btn-ghost" : "btn-primary")} href={p.caseUrl} target="_blank" rel="noreferrer">

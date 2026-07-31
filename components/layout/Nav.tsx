@@ -13,17 +13,17 @@ type NavCopy = {
 const NAV_COPY: Record<Lang, NavCopy> = {
   en: {
     links: [
-      ["Work", "#work"],
-      ["About", "#about"],
-      ["Contact", "#contact"],
+      ["Work", "/#work"],
+      ["About", "/#about"],
+      ["Contact", "/#contact"],
     ],
     cta: "Get in touch",
   },
   es: {
     links: [
-      ["Proyectos", "#work"],
-      ["Sobre mí", "#about"],
-      ["Contacto", "#contact"],
+      ["Proyectos", "/#work"],
+      ["Sobre mí", "/#about"],
+      ["Contacto", "/#contact"],
     ],
     cta: "Hablemos",
   },
@@ -88,7 +88,7 @@ export function Nav() {
       }
     >
       <div className="nav-inner wrap">
-        <a href="#top" className="brand" aria-label="Ana Karina Suárez, inicio">
+        <a href="/#top" className="brand" aria-label="Ana Karina Suárez, inicio">
           <Logo />
         </a>
         <nav className="nav-links" aria-label={lang === "es" ? "Principal" : "Primary"}>
@@ -100,7 +100,7 @@ export function Nav() {
         </nav>
         <div className="nav-cta">
           <LangToggle />
-          <a href="#contact" className="btn btn-primary nav-btn">
+          <a href="/#contact" className="btn btn-primary nav-btn">
             {c.cta} <Arrow />
           </a>
           <button
@@ -122,7 +122,7 @@ export function Nav() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="/#contact"
             className="btn btn-primary"
             onClick={() => setOpen(false)}
           >
