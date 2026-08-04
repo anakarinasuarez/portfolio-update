@@ -65,6 +65,17 @@ npm run start
 npm run lint
 ```
 
+### Environment
+
+The AI assistant (`/api/chat`) needs a Groq API key — free tier, no card required:
+
+```bash
+cp .env.example .env.local   # then paste your key from https://console.groq.com/keys
+```
+
+Without it the chat degrades gracefully: it answers with Ana's email instead of
+failing. On Vercel, add `GROQ_API_KEY` under Project Settings → Environment Variables.
+
 ## Project structure
 
 ```
