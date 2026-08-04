@@ -1,6 +1,14 @@
 import Groq from "groq-sdk";
 
-import { splitBooking, systemPrompt, type Booking, type Lang } from "@/lib/assistant";
+import {
+  buildBookingUrl,
+  LEAK_REPLY,
+  looksLikePromptLeak,
+  splitBooking,
+  systemPrompt,
+  type Booking,
+  type Lang,
+} from "@/lib/assistant";
 
 /** Endpoint público: acotamos la entrada para no quemar la cuota gratuita. */
 const MAX_MESSAGES = 40;
@@ -11,7 +19,12 @@ const MAX_COMPLETION_TOKENS = 800;
 const MODEL = "llama-3.3-70b-versatile";
 
 type ClientMessage = { role: "user" | "assistant"; text: string };
-type ChatResponse = { reply: string; booking: Booking | null };
+type ChatResponse = {
+  reply: string;
+  booking: Booking | null;
+  /** Enlace de Cal.com prerrellenado; null si no hay calendario configurado. */
+  bookingUrl: string | null;
+};
 
 /** Valida el cuerpo recibido sin confiar en su forma (llega de la red). */
 function parseBody(body: unknown): { messages: ClientMessage[]; lang: Lang } | null {
@@ -68,7 +81,17 @@ export async function POST(request: Request): Promise<Response> {
     const raw = (completion.choices[0]?.message?.content ?? "").trim();
     if (!raw) return Response.json({ error: "empty" }, { status: 502 });
 
-    const payload: ChatResponse = splitBooking(raw);
+    if (looksLikePromptLeak(raw)) {
+      console.warn("[api/chat] respuesta descartada: recitaba el system prompt");
+      return Response.json({ reply: LEAK_REPLY[input.lang], booking: null, bookingUrl: null });
+    }
+
+    const { reply, booking } = splitBooking(raw);
+    const payload: ChatResponse = {
+      reply,
+      booking,
+      bookingUrl: booking ? buildBookingUrl(booking, process.env.CAL_BOOKING_URL) : null,
+    };
     return Response.json(payload);
   } catch (error) {
     // Al agotar la cuota el cliente ya ofrece el correo de Ana como salida.

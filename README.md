@@ -76,6 +76,10 @@ cp .env.example .env.local   # then paste your key from https://console.groq.com
 Without it the chat degrades gracefully: it answers with Ana's email instead of
 failing. On Vercel, add `GROQ_API_KEY` under Project Settings → Environment Variables.
 
+`CAL_BOOKING_URL` is optional: set it to a public Cal.com event link and the
+assistant hands visitors a pre-filled booking page so they pick a slot against
+Ana's real availability. Left empty, the meeting card falls back to email.
+
 ## Project structure
 
 ```

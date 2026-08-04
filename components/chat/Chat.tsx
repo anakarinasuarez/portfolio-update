@@ -12,7 +12,7 @@ import { Arrow } from "@/components/ui/Arrow";
 import type { Booking } from "@/lib/assistant";
 
 type ChatMsg = { role: "user" | "assistant"; text: string; mail?: boolean };
-type ChatResponse = { reply: string; booking: Booking | null };
+type ChatResponse = { reply: string; booking: Booking | null; bookingUrl: string | null };
 
 
 const CHAT_COPY: Record<
@@ -26,6 +26,7 @@ const CHAT_COPY: Record<
     send: string;
     open: string;
     confirm: string;
+    pickSlot: string;
     booked: string;
     errorNoAPI: string;
     error: string;
@@ -42,6 +43,7 @@ const CHAT_COPY: Record<
     send: "Send",
     open: "Chat with Ana's assistant",
     confirm: "Confirm & send request to Ana",
+    pickSlot: "Pick a time in Ana's calendar",
     booked: "Request ready, your email app will open so Ana receives the details. ✅",
     errorNoAPI: "The live assistant isn't available here. You can email Ana directly:",
     error: "Sorry, something went wrong. You can also email Ana directly:",
@@ -57,6 +59,7 @@ const CHAT_COPY: Record<
     send: "Enviar",
     open: "Chatea con el asistente de Ana",
     confirm: "Confirmar y enviar solicitud a Ana",
+    pickSlot: "Elegir hora en el calendario de Ana",
     booked: "Solicitud lista, se abrirá tu correo para que Ana reciba los detalles. ✅",
     errorNoAPI: "El asistente en vivo no está disponible aquí. Puedes escribir a Ana directamente:",
     error: "Lo siento, algo salió mal. También puedes escribir a Ana directamente:",
@@ -72,6 +75,7 @@ export function Chat() {
   const [input, setInput] = useState<string>("");
   const [busy, setBusy] = useState<boolean>(false);
   const [booking, setBooking] = useState<Booking | null>(null);
+  const [bookingUrl, setBookingUrl] = useState<string | null>(null);
   const bodyRef = useRef<HTMLDivElement | null>(null);
   const greetedLang = useRef<Lang>(lang);
 
@@ -92,7 +96,7 @@ export function Chat() {
       `${b.format ? b.format + " request" : "Meeting request"}: ${b.name || "Portfolio visitor"}`
     );
     const body = encodeURIComponent(
-      `Name: ${b.name || ""}\nEmail: ${b.email || ""}\nFormat: ${b.format || ""}\nPreferred time: ${b.datetime || ""}\nTopic: ${b.topic || ""}\n\nSent from the portfolio assistant.`
+      `Name: ${b.name || ""}\nEmail: ${b.email || ""}\nFormat: ${b.format || ""}\nTopic: ${b.topic || ""}\n\nSent from the portfolio assistant.`
     );
     return `mailto:karinasuarezdos@gmail.com?subject=${subject}&body=${body}`;
   };
@@ -102,6 +106,7 @@ export function Chat() {
     if (!content || busy) return;
     setInput("");
     setBooking(null);
+    setBookingUrl(null);
     const visible: ChatMsg[] = [...msgs, { role: "user", text: content }];
     setMsgs(visible);
     setBusy(true);
@@ -128,7 +133,10 @@ export function Chat() {
 
       const data = (await res.json()) as ChatResponse;
       setMsgs([...visible, { role: "assistant", text: data.reply || c.booked }]);
-      if (data.booking) setBooking(data.booking);
+      if (data.booking) {
+        setBooking(data.booking);
+        setBookingUrl(data.bookingUrl);
+      }
     } catch {
       setMsgs([...visible, { role: "assistant", text: c.error, mail: true }]);
     } finally {
@@ -176,9 +184,15 @@ export function Chat() {
               <div className="chat-booking">
                 <div className="chat-booking-row"><b>{booking.name}</b> · {booking.email}</div>
                 {booking.format && <div className="chat-booking-row chat-booking-format">{booking.format}</div>}
-                <div className="chat-booking-row">{booking.datetime}</div>
                 <div className="chat-booking-row chat-booking-topic">{booking.topic}</div>
-                <a className="chat-confirm" href={mailtoFor(booking)}>{c.confirm} <Arrow size={14} /></a>
+                {/* Con calendario, el visitante elige hora libre; sin él, correo. */}
+                <a
+                  className="chat-confirm"
+                  href={bookingUrl ?? mailtoFor(booking)}
+                  {...(bookingUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {bookingUrl ? c.pickSlot : c.confirm} <Arrow size={14} />
+                </a>
               </div>
             )}
           </div>
