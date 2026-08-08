@@ -168,13 +168,33 @@ themselves, so it is safe to quote.
   highlights words as they are spoken; tap-to-translate (Spanish, French,
   Portuguese); a saved-words list; and practice sentences generated on the fly with
   Google Gemini Flash, with a template fallback so it still works with no API.
-  Built 1:1 from her own Figma design system. Next.js 16, React 19, strict
-  TypeScript, Tailwind v4, Zustand, TanStack Query, Radix UI, Sentry.
-  Quality is the point of this one: 686 unit and component tests (Vitest + React
-  Testing Library), Playwright end-to-end covering browse → read → save → practice,
-  jest-axe accessibility checks with keyboard operability and visible focus on every
-  interactive component, and CI running lint, typecheck, tests, build and a
-  dependency-vulnerability audit on every pull request. WCAG AA.
+  Next.js 16 (App Router, React Server Components), React 19, strict TypeScript,
+  Tailwind v4, Radix UI primitives, Storybook, Zustand, TanStack Query, MSW,
+  Sentry for errors and Web Vitals, deployed on Vercel.
+  Two things make this her strongest technical reference:
+  (a) Figma is the source of truth — the design tokens are generated from it and
+  never hand-edited, and each component sits with everything it owns beside it
+  (component, story, test, Figma mapping). The build order is fixed: tokens → ui
+  → composites → features → flows → e2e. This is the designer-who-codes pipeline
+  working end to end, not a claim.
+  (b) The app is BUILT BY a roster of specialist agents she designed (see its
+  .claude/agents/ and CONTRIBUTING.md). It is working evidence of the AI
+  orchestration on her CV — a shipped, tested, accessible product produced that
+  way, not a demo.
+  Be precise about (b): the agents are her development process, not a feature of
+  the product. They write, review and test the code; they do not run inside the
+  app and users never interact with them. The only AI the app itself runs is
+  Gemini Flash generating practice sentences. Never say the app "uses agents to
+  generate content" or "automate tasks" for its users — that is false and a
+  technical interviewer will catch it.
+  Quality: 686 unit and component tests (Vitest + React Testing Library),
+  Playwright end-to-end over browse → read → save → practice, jest-axe checks plus
+  keyboard operability and visible focus on every interactive component, WCAG AA
+  with prefers-reduced-motion honoured and AA-contrast tokens. CI runs lint,
+  typecheck, tests, build and a dependency-vulnerability audit on every pull
+  request; every PR gets a preview deploy and there is a documented rollback
+  runbook. The live demo runs on mocked data, so it is fully clickable with no
+  sign-in.
 - Chef at Home (chef-at-home-v1.vercel.app) — turns the ingredients you have into
   full recipes with AI: title, ingredients, steps and timing as structured JSON from
   Google Gemini 2.5 Flash, on the free tier so it stays free and unlimited. Includes
