@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLang } from "@/components/i18n/lang";
+import { IconSprite } from "@/components/ui/IconSprite";
 
 type LocalizedText = { en: string; es: string };
 
@@ -74,6 +75,7 @@ export function SkillsOrbit() {
   const tool = ic.color ? "#" + ic.color : "var(--accent)";
   return (
     <div className="cap-orbit in-about" style={{ "--tool": tool } as React.CSSProperties}>
+      <IconSprite />
       <div className="orbit-center">
         <div className="cube3d" aria-hidden="true">
           {["cf-front","cf-back","cf-right","cf-left","cf-top","cf-bottom"].map((f, i) => {
@@ -86,8 +88,12 @@ export function SkillsOrbit() {
                 {isLid ? (
                   <span className="cf-emblem" key={active}>
                     {ic.slug || ic.src ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img className="cf-emblem-logo" src={ic.src ?? "/icons/" + ic.slug + ".svg"} alt="" width={64} height={64} />
+                      ic.src ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img className="cf-emblem-logo" src={ic.src} alt="" width={64} height={64} />
+                      ) : (
+                        <svg className="cf-emblem-logo" width={64} height={64} aria-hidden="true"><use href={"#i-" + ic.slug} /></svg>
+                      )
                     ) : (
                       <span className="cf-emblem-mono">{ic.text}</span>
                     )}
@@ -117,8 +123,12 @@ export function SkillsOrbit() {
               <span className="cap-badge-ring">
                 {icon.slug || icon.src ? (
                   <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="cap-badge-logo" src={icon.src ?? "/icons/" + icon.slug + ".svg"} alt={name} width={24} height={24} loading="lazy" />
+                    {icon.src ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img className="cap-badge-logo" src={icon.src} alt={name} width={24} height={24} loading="lazy" />
+                    ) : (
+                      <svg className="cap-badge-logo" width={24} height={24} role="img" aria-label={name}><use href={"#i-" + icon.slug} /></svg>
+                    )}
                   </>
                 ) : (
                   <span className="cap-badge-mono">{icon.text}</span>
