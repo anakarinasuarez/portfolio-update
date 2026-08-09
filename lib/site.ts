@@ -30,8 +30,8 @@ export const siteConfig = {
   phone: "+34698347608",
   phoneDisplay: "+34 698 347 608",
   cv: {
-    en: "/cvs/Ana-Karina-Suarez-CV-EN.pdf",
-    es: "/cvs/Ana-Karina-Suarez-CV-ES.pdf",
+    en: "/cvs/anakarinasuarez-cv-en.pdf",
+    es: "/cvs/anakarinasuarez-cv-esp.pdf",
   },
   // Perfiles públicos para JSON-LD `sameAs` y el footer.
   social: {
