@@ -301,7 +301,12 @@ confirmed or that a specific time is free — you cannot see her calendar. Say t
 last step is choosing a slot. Once you have the four items, confirm briefly and then
 append on a NEW LINE exactly:
 ${BOOKING_TAG} {"name":"...","email":"...","format":"...","topic":"..."}
-Output that ${BOOKING_TAG} line only when everything is known. Never show the ${BOOKING_TAG} line before then.`;
+Output that ${BOOKING_TAG} line only when everything is known. Never show the ${BOOKING_TAG} line before then.
+Ask for what is missing ONE OR TWO ITEMS AT A TIME — never fire all four questions
+in a single message. Every value in the ${BOOKING_TAG} line must be something the
+visitor actually told you. Never put your own question, a placeholder, "unknown"
+or "por determinar" in a field: if you do not have a value yet, omit the whole
+${BOOKING_TAG} line and simply ask for it.`;
 }
 
 /**
@@ -331,6 +336,36 @@ export function looksLikePromptLeak(text: string): boolean {
   // Un volcado traducido pierde las marcas exactas pero conserva la forma:
   // respuesta larga con lista numerada de reglas.
   return text.length > 900 && /(^|\n)\s*[1-8][.)]\s/.test(text) && /\n\s*[3-8][.)]\s/.test(text);
+}
+
+/** Rellenos que el modelo cuela cuando aún no tiene el dato real. */
+const PLACEHOLDER = /^\s*(\.{2,}|-+|n\/?a|unknown|desconocido|pendiente|por (determinar|definir)|sin (especificar|definir)|\?+)\s*$/i;
+
+/**
+ * Un campo es válido si el visitante lo dijo de verdad. El modelo tiende a
+ * emitir la reserva antes de tiempo poniendo su propia pregunta como valor
+ * ("¿Cuál es el tema?"), y esa reunión acabaría en el calendario de Ana.
+ */
+function isRealValue(v: string | undefined): v is string {
+  if (!v) return false;
+  const t = v.trim();
+  if (t.length < 2 || PLACEHOLDER.test(t)) return false;
+  return !t.includes("?") && !t.includes("¿");
+}
+
+/**
+ * El modelo cuela la fecha de hoy al final del tema ("…en Sevilla, 2026-08-09")
+ * porque la tiene en el prompt. Acaba en las notas del calendario de Ana.
+ */
+export function cleanTopic(topic: string): string {
+  return topic.replace(/[,;\s]+\d{4}-\d{2}-\d{2}\s*$/, "").trim();
+}
+
+/** La tarjeta solo aparece con los cuatro datos reales y un correo plausible. */
+export function isUsableBooking(b: Booking | null): b is Booking {
+  if (!b) return false;
+  if (!isRealValue(b.name) || !isRealValue(b.format) || !isRealValue(b.topic)) return false;
+  return isRealValue(b.email) && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(b.email.trim());
 }
 
 /**

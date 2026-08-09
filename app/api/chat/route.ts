@@ -2,6 +2,8 @@ import Groq from "groq-sdk";
 
 import {
   buildBookingUrl,
+  cleanTopic,
+  isUsableBooking,
   LEAK_REPLY,
   looksLikePromptLeak,
   splitBooking,
@@ -87,10 +89,14 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     const { reply, booking } = splitBooking(raw);
+    // Sin los cuatro datos reales no hay tarjeta: el asistente sigue preguntando.
+    const usable = isUsableBooking(booking)
+      ? { ...booking, topic: cleanTopic(booking.topic ?? "") }
+      : null;
     const payload: ChatResponse = {
       reply,
-      booking,
-      bookingUrl: booking ? buildBookingUrl(booking, process.env.CAL_BOOKING_URL) : null,
+      booking: usable,
+      bookingUrl: usable ? buildBookingUrl(usable, process.env.CAL_BOOKING_URL) : null,
     };
     return Response.json(payload);
   } catch (error) {

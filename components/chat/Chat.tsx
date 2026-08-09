@@ -28,6 +28,7 @@ const CHAT_COPY: Record<
     confirm: string;
     pickSlot: string;
     booked: string;
+    bookedSlot: string;
     errorNoAPI: string;
     error: string;
     thinking: string;
@@ -45,6 +46,7 @@ const CHAT_COPY: Record<
     confirm: "Confirm & send request to Ana",
     pickSlot: "Pick a time in Ana's calendar",
     booked: "Request ready, your email app will open so Ana receives the details. ✅",
+    bookedSlot: "All set — just pick a time that suits you in Ana's calendar. ✅",
     errorNoAPI: "The live assistant isn't available here. You can email Ana directly:",
     error: "Sorry, something went wrong. You can also email Ana directly:",
     thinking: "Thinking…",
@@ -61,6 +63,7 @@ const CHAT_COPY: Record<
     confirm: "Confirmar y enviar solicitud a Ana",
     pickSlot: "Elegir hora en el calendario de Ana",
     booked: "Solicitud lista, se abrirá tu correo para que Ana reciba los detalles. ✅",
+    bookedSlot: "Listo — solo falta que elijas la hora que mejor te venga en el calendario de Ana. ✅",
     errorNoAPI: "El asistente en vivo no está disponible aquí. Puedes escribir a Ana directamente:",
     error: "Lo siento, algo salió mal. También puedes escribir a Ana directamente:",
     thinking: "Pensando…",
@@ -132,7 +135,10 @@ export function Chat() {
       }
 
       const data = (await res.json()) as ChatResponse;
-      setMsgs([...visible, { role: "assistant", text: data.reply || c.booked }]);
+      // A veces el modelo devuelve solo la reserva, sin texto: el relleno debe
+      // decir lo que hace el boton que se acaba de pintar, no otra cosa.
+      const fallback = data.bookingUrl ? c.bookedSlot : c.booked;
+      setMsgs([...visible, { role: "assistant", text: data.reply || fallback }]);
       if (data.booking) {
         setBooking(data.booking);
         setBookingUrl(data.bookingUrl);
