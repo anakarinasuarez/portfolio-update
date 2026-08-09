@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useLang } from "@/components/i18n/lang";
 import { IconSprite } from "@/components/ui/IconSprite";
@@ -7,8 +8,9 @@ import { IconSprite } from "@/components/ui/IconSprite";
 type LocalizedText = { en: string; es: string };
 
 interface SkillIcon {
+  /** Símbolo del sprite: se pinta como <use href="#i-slug" />. */
   slug?: string;
-  /** Direct image path (e.g. a PNG) — used instead of the /icons/<slug>.svg path. */
+  /** Ruta directa a un raster, para el logo que no está en el sprite. */
   src?: string;
   color?: string;
   text?: string;
@@ -89,8 +91,7 @@ export function SkillsOrbit() {
                   <span className="cf-emblem" key={active}>
                     {ic.slug || ic.src ? (
                       ic.src ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img className="cf-emblem-logo" src={ic.src} alt="" width={64} height={64} />
+                        <Image className="cf-emblem-logo" src={ic.src} alt="" width={64} height={64} />
                       ) : (
                         <svg className="cf-emblem-logo" width={64} height={64} aria-hidden="true"><use href={"#i-" + ic.slug} /></svg>
                       )
@@ -124,8 +125,7 @@ export function SkillsOrbit() {
                 {icon.slug || icon.src ? (
                   <>
                     {icon.src ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img className="cap-badge-logo" src={icon.src} alt={name} width={24} height={24} loading="lazy" />
+                      <Image className="cap-badge-logo" src={icon.src} alt={name} width={24} height={24} loading="lazy" />
                     ) : (
                       <svg className="cap-badge-logo" width={24} height={24} role="img" aria-label={name}><use href={"#i-" + icon.slug} /></svg>
                     )}

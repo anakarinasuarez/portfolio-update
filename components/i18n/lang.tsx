@@ -9,7 +9,9 @@ import {
   type ReactNode,
 } from "react";
 
-export type Lang = "es" | "en";
+// Reexportado para no romper los imports existentes de los componentes.
+import type { Lang } from "@/lib/lang";
+export type { Lang };
 
 type LangContextValue = {
   lang: Lang;

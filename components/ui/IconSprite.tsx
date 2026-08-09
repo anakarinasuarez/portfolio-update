@@ -1,5 +1,7 @@
 /**
- * Sprite de logos generado desde public/icons/*.svg.
+ * Sprite de logos. Los paths vienen de simple-icons (24×24, un solo path);
+ * este fichero es ya la fuente de verdad — los SVG sueltos se eliminaron
+ * porque se desplegaban sin que nadie los pidiera.
  * Se pinta una sola vez y cada insignia lo referencia con <use href="#i-slug" />:
  * 14 peticiones HTTP pasan a 0, y el <use> dentro del mismo documento no tiene
  * los problemas de compatibilidad del <use> a fichero externo.

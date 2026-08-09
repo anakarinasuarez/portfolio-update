@@ -1,6 +1,7 @@
 /** Tipos compartidos por el asistente del portfolio. */
 
-export type Lang = "es" | "en";
+import type { Lang } from "@/lib/lang";
+export type { Lang };
 
 /**
  * Datos que el asistente reúne antes de pasar al calendario. La hora no está
