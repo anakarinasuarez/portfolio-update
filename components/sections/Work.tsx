@@ -183,16 +183,22 @@ export function Work() {
 
   // Arriving from a project's case-study page (e.g. /?project=evolution-pos)
   // re-opens that project's modal so "back" feels continuous.
+  //
+  // set-state-in-effect is disabled on purpose rather than worked around: the
+  // page is statically generated, so the server cannot know the query string.
+  // Deriving this during render would make the server and client markup differ
+  // and break hydration. Reading the URL after mount is the only correct place,
+  // and it runs once — there is no cascading-render cost to avoid here.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search).get("project");
     if (!p) return;
     const i = PROJECTS.findIndex((pr) => pr.caseHref === "/proyectos/" + p);
     if (i >= 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIdx(i);
       setOpen(true);
       window.history.replaceState(null, "", "/#work");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const restart = () => {

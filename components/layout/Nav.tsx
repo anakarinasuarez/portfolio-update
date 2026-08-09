@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useLang, type Lang } from "@/components/i18n/lang";
 import { Arrow } from "@/components/ui/Arrow";
@@ -88,9 +89,9 @@ export function Nav() {
       }
     >
       <div className="nav-inner wrap">
-        <a href="/#top" className="brand" aria-label="Ana Karina Suárez, inicio">
+        <Link href="/#top" className="brand" aria-label="Ana Karina Suárez, inicio">
           <Logo />
-        </a>
+        </Link>
         <nav className="nav-links" aria-label={lang === "es" ? "Principal" : "Primary"}>
           {c.links.map(([label, href]) => (
             <a key={href} href={href}>
@@ -100,9 +101,9 @@ export function Nav() {
         </nav>
         <div className="nav-cta">
           <LangToggle />
-          <a href="/#contact" className="btn btn-primary nav-btn">
+          <Link href="/#contact" className="btn btn-primary nav-btn">
             {c.cta} <Arrow />
-          </a>
+          </Link>
           <button
             className="nav-burger"
             aria-label={lang === "es" ? "Menú" : "Menu"}
@@ -121,13 +122,13 @@ export function Nav() {
               {label}
             </a>
           ))}
-          <a
+          <Link
             href="/#contact"
             className="btn btn-primary"
             onClick={() => setOpen(false)}
           >
             {c.cta} <Arrow />
-          </a>
+          </Link>
         </div>
       )}
     </header>

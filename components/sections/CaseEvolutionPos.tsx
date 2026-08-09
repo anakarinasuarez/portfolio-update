@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useLang, type Lang } from "@/components/i18n/lang";
 
 type Loc = Record<Lang, string>;
@@ -143,7 +144,7 @@ export function CaseEvolutionPos() {
   return (
     <article className="case">
       <div className="wrap case-top">
-        <a href="/?project=evolution-pos#work" className="case-back">← {c.back}</a>
+        <Link href="/?project=evolution-pos#work" className="case-back">← {c.back}</Link>
         <span className="case-kind">{c.kind}</span>
       </div>
 
@@ -209,7 +210,7 @@ export function CaseEvolutionPos() {
           <ul>{c.tags.map((t) => <li key={t}>{t}</li>)}</ul>
         </div>
         <div className="case-actions">
-          <a href="/?project=evolution-pos#work" className="btn btn-primary">← {c.backToWork}</a>
+          <Link href="/?project=evolution-pos#work" className="btn btn-primary">← {c.backToWork}</Link>
         </div>
       </section>
     </article>
