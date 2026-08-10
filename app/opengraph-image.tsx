@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { brand } from "@/lib/brand";
 import { siteConfig } from "@/lib/site";
 
 // Convención de archivo Next: genera og:image (y twitter:image) en build.
@@ -17,8 +18,8 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "90px",
-          background: "linear-gradient(135deg, #1c1714 0%, #241a17 55%, #1c1714 100%)",
-          color: "#f2ede9",
+          background: `linear-gradient(135deg, ${brand.ink} 0%, #241a17 55%, ${brand.ink} 100%)`,
+          color: brand.paper,
         }}
       >
         <div
@@ -32,7 +33,7 @@ export default function OpengraphImage() {
             color: "#ff6d5f",
           }}
         >
-          <div style={{ width: 44, height: 3, background: "#EF5143" }} />
+          <div style={{ width: 44, height: 3, background: brand.accent }} />
           Sevilla · Remote
         </div>
         <div

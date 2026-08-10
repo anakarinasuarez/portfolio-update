@@ -1,6 +1,10 @@
 /**
  * Brand lockup: a minimalist split-disc mark (one half coral = design,
  * one half outlined = code — the designer/developer duality) + serif wordmark.
+ *
+ * Esta es la versión para la web. La misma marca vive también en
+ * components/ui/Mark.tsx, dibujada con divs, porque Satori no rasteriza este
+ * arco al generar el favicon. Si cambias la forma, cambia las dos.
  */
 export function Logo() {
   return (

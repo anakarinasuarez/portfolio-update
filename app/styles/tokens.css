@@ -29,6 +29,7 @@
   --text-faint: oklch(0.55 0.008 70);
 
   /* Accent — coral red */
+  /* Espejo en lib/brand.ts para las imágenes generadas (favicon, OG). */
   --accent: #EF5143;
   --accent-bright: #ff6d5f;
   --accent-dim: rgba(239, 81, 67, 0.14);

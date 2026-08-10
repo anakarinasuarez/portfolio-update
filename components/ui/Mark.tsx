@@ -7,6 +7,8 @@
  * next/og, falla al rasterizar el arco del Logo original.
  */
 
+import { brand } from "@/lib/brand";
+
 type MarkProps = {
   /** Lado del lienzo en px. */
   canvas: number;
@@ -34,7 +36,7 @@ export function Mark({ canvas, disc, stroke }: MarkProps) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#1C1714",
+        background: brand.ink,
       }}
     >
       <div
@@ -43,12 +45,12 @@ export function Mark({ canvas, disc, stroke }: MarkProps) {
           height: disc,
           display: "flex",
           borderRadius: disc,
-          border: `${stroke}px solid #F2EDE9`,
+          border: `${stroke}px solid ${brand.paper}`,
           overflow: "hidden",
         }}
       >
         {/* Media luna rellena: la mitad izquierda del disco. */}
-        <div style={{ width: disc / 2, height: disc, background: "#EF5143" }} />
+        <div style={{ width: disc / 2, height: disc, background: brand.accent }} />
       </div>
     </div>
   );
