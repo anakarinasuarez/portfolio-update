@@ -33,11 +33,12 @@ export const siteConfig = {
     en: "/cvs/anakarinasuarez-cv-en.pdf",
     es: "/cvs/anakarinasuarez-cv-esp.pdf",
   },
-  // Perfiles públicos para JSON-LD `sameAs` y el footer.
+  // Perfiles públicos para JSON-LD `sameAs` y el footer. NO incluir aquí otro
+  // portfolio: `sameAs` le dice a Google "esta persona también es esa web", y
+  // apuntar al Webflow antiguo repartía la señal entre dos sitios.
   social: {
     github: "https://github.com/anakarinasuarez",
     linkedin: "https://www.linkedin.com/in/connect-ana-karina-su%C3%A1rez-gonz%C3%A1lez/",
-    portfolio: "https://portfolio-ana-karina-suarez.webflow.io",
   },
 } as const;
 
