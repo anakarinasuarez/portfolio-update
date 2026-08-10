@@ -90,7 +90,7 @@ export function Nav() {
     >
       <div className="nav-inner wrap">
         <Link href="/#top" className="brand" aria-label="Ana Karina Suárez, inicio">
-          <Logo wordmark={false} />
+          <Logo />
         </Link>
         <nav className="nav-links" aria-label={lang === "es" ? "Principal" : "Primary"}>
           {c.links.map(([label, href]) => (
