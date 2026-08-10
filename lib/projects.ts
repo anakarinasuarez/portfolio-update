@@ -111,7 +111,7 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/anakarinasuarez/ReadEasily",
     img: IMAGES.work.readeasily, bg: "#f2e8d9", ratio: 2516 / 1800,
     head: { en: ["LANGUAGES,", "MADE EASY"], es: ["IDIOMAS,", "MÁS FÁCILES"] },
-    tagline: { en: "A full Figma design system, ported 1:1 to a tested, accessible production app.", es: "Un design system completo en Figma, portado 1:1 a una app real, testeada y accesible." },
+    tagline: { en: "Learn English inside stories you want to finish, read them, hear them, tap to translate.", es: "Aprende inglés con cuentos que quieres terminar, léelos, escúchalos, toca y traduce." },
     en: {
       role: "UX/UI + Frontend",
       note: "Personal · Design → Code",
