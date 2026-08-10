@@ -95,9 +95,8 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  // Sin `icons`: app/icon.tsx y app/apple-icon.tsx generan la marca en build y
+  // Next inserta sus etiquetas solo. Declararlo aquí las pisaría.
 };
 
 export default function RootLayout({
