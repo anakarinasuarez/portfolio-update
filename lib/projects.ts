@@ -115,14 +115,14 @@ export const PROJECTS: Project[] = [
     en: {
       role: "UX/UI + Frontend",
       note: "Personal · Design → Code",
-      blurb: "A graded-reading app to learn English through short illustrated fables: read, listen, translate and save words. Built to prove a design decision can reach production intact: a complete Figma design system (~125 tokens, 32 components) ported 1:1 to a Next.js app with strict TypeScript, 686 tests and WCAG AA accessibility.",
+      blurb: "What gets signed off in Figma usually reaches production diluted. Not here: a complete design system — ~125 tokens, 32 components — ported 1:1 into a Next.js app with strict TypeScript, 686 tests and WCAG AA verified on every pull request. Inside, an app to learn English through illustrated stories: read, listen, translate, practise. What you get when the same person designs it and ships it.",
       results: ["Figma design system → 1:1 in code", "686 tests · WCAG AA · CI on every PR", "48 screens · ~125 tokens · 32 components"],
       tags: ["Design System", "Figma", "Next.js", "TypeScript", "Testing", "Accessibility"],
     },
     es: {
       role: "UX/UI + Frontend",
       note: "Personal · Diseño → Código",
-      blurb: "Una app de lectura graduada para aprender inglés con cuentos cortos ilustrados: leer, escuchar, traducir y guardar palabras. Construida para demostrar que una decisión de diseño puede llegar a producción intacta: un design system completo en Figma (~125 tokens, 32 componentes) portado 1:1 a una app Next.js con TypeScript estricto, 686 tests y accesibilidad WCAG AA.",
+      blurb: "Lo que se aprueba en Figma suele llegar a producción a medias. Aquí no: un design system completo — ~125 tokens, 32 componentes — portado 1:1 a una app Next.js con TypeScript estricto, 686 tests y WCAG AA verificados en cada pull request. Dentro, una app para aprender inglés con cuentos ilustrados: leer, escuchar, traducir y practicar. Lo que consigues cuando la misma persona lo diseña y lo lanza.",
       results: ["Design system en Figma → 1:1 en código", "686 tests · WCAG AA · CI en cada PR", "48 pantallas · ~125 tokens · 32 componentes"],
       tags: ["Design System", "Figma", "Next.js", "TypeScript", "Testing", "Accesibilidad"],
     },

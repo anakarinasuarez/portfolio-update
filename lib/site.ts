@@ -5,7 +5,7 @@
 
 // URL de producción. En Vercel define NEXT_PUBLIC_SITE_URL en las env vars.
 export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ana-karina-suarez.vercel.app"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://anakarinasuarez.vercel.app"
 ).replace(/\/$/, "");
 
 export const siteConfig = {
