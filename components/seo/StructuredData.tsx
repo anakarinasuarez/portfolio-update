@@ -20,7 +20,6 @@ export function StructuredData() {
         url: siteUrl,
         image: `${siteUrl}/images/image-me.webp`,
         email: `mailto:${siteConfig.email}`,
-        telephone: siteConfig.phone,
         sameAs: socialLinks,
         knowsLanguage: ["es", "en"],
         address: {

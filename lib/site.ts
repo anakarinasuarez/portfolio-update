@@ -27,6 +27,8 @@ export const siteConfig = {
     country: "ES",
   },
   email: "karinasuarezdos@gmail.com",
+  // Fuera del JSON-LD a propósito: ahí lo cosechan los rastreadores sin que
+  // ningún humano lo lea. Sigue visible en Contacto, para quien quiera llamar.
   phone: "+34698347608",
   phoneDisplay: "+34 698 347 608",
   cv: {
