@@ -2,12 +2,14 @@
 
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useLangHref } from "@/components/i18n/lang";
 import { Arrow } from "@/components/ui/Arrow";
 import { ScreenMedia } from "./ScreenMedia";
 import type { Project, ProjectContent } from "@/lib/projects";
 import type { WorkCopy } from "./types";
 
 export function Lightbox({ p, cc, labels, onClose }: { p: Project; cc: ProjectContent; labels: WorkCopy; onClose: () => void }) {
+  const withLang = useLangHref();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", onKey);
@@ -49,7 +51,7 @@ export function Lightbox({ p, cc, labels, onClose }: { p: Project; cc: ProjectCo
                 <a className="btn btn-primary pg-link" href={p.href} target="_blank" rel="noreferrer">{labels.visit} <Arrow /></a>
               )}
               {p.caseHref && (
-                <a className={"btn pg-link " + (p.href ? "btn-ghost" : "btn-primary")} href={p.caseHref}>
+                <a className={"btn pg-link " + (p.href ? "btn-ghost" : "btn-primary")} href={withLang(p.caseHref)}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 2.75h7l5 5V20.5a.75.75 0 0 1-.75.75H6.75A.75.75 0 0 1 6 20.5v-17A.75.75 0 0 1 6.75 2.75z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/><path d="M13 2.75V7.75h5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
                   {labels.view} <Arrow />
                 </a>

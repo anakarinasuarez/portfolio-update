@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useLang, type Lang } from "@/components/i18n/lang";
+import { useLang, useLangHref, type Lang } from "@/components/i18n/lang";
 import { Arrow } from "@/components/ui/Arrow";
 import { Logo } from "@/components/ui/Logo";
 
@@ -54,6 +54,7 @@ function LangToggle() {
 
 export function Nav() {
   const { lang } = useLang();
+  const withLang = useLangHref();
   const c = NAV_COPY[lang];
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -89,7 +90,7 @@ export function Nav() {
       }
     >
       <div className="nav-inner wrap">
-        <Link href="/#top" className="brand" aria-label="Ana Karina Suárez, inicio">
+        <Link href={withLang("/#top")} className="brand" aria-label="Ana Karina Suárez, inicio">
           <Logo />
         </Link>
         <nav className="nav-links" aria-label={lang === "es" ? "Principal" : "Primary"}>
@@ -101,7 +102,7 @@ export function Nav() {
         </nav>
         <div className="nav-cta">
           <LangToggle />
-          <Link href="/#contact" className="btn btn-primary nav-btn">
+          <Link href={withLang("/#contact")} className="btn btn-primary nav-btn">
             {c.cta} <Arrow />
           </Link>
           <button
@@ -123,7 +124,7 @@ export function Nav() {
             </a>
           ))}
           <Link
-            href="/#contact"
+            href={withLang("/#contact")}
             className="btn btn-primary"
             onClick={() => setOpen(false)}
           >

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useLang, type Lang } from "@/components/i18n/lang";
+import { useLang, useLangHref, type Lang } from "@/components/i18n/lang";
 
 type Loc = Record<Lang, string>;
 type Step = { n: string; img: string; title: Loc; text: Loc };
@@ -140,11 +140,12 @@ const COPY: Record<Lang, Copy> = {
 
 export function CaseEvolutionPos() {
   const { lang } = useLang();
+  const withLang = useLangHref();
   const c = COPY[lang];
   return (
     <article className="case">
       <div className="wrap case-top">
-        <Link href="/?project=evolution-pos#work" className="case-back">← {c.back}</Link>
+        <Link href={withLang("/?project=evolution-pos#work")} className="case-back">← {c.back}</Link>
         <span className="case-kind">{c.kind}</span>
       </div>
 
@@ -210,7 +211,7 @@ export function CaseEvolutionPos() {
           <ul>{c.tags.map((t) => <li key={t}>{t}</li>)}</ul>
         </div>
         <div className="case-actions">
-          <Link href="/?project=evolution-pos#work" className="btn btn-primary">← {c.backToWork}</Link>
+          <Link href={withLang("/?project=evolution-pos#work")} className="btn btn-primary">← {c.backToWork}</Link>
         </div>
       </section>
     </article>
