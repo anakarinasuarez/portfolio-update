@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
 import { brand } from "@/lib/brand";
+import { LANGS, type Lang } from "@/lib/lang";
 import { siteConfig, siteUrl } from "@/lib/site";
 
 // Convención de archivo Next: genera og:image (y twitter:image) en build.
@@ -13,9 +14,27 @@ export const contentType = "image/png";
  * scroll, así que lleva una sola idea grande (diseña y programa, con agentes de
  * IA) y tres pruebas concretas debajo — no una lista de tecnologías.
  */
-const PROOF = ["Del diseño al código sin pérdida", "Agentes de IA en producción", "−40% bugs · +23,1% ingresos"];
+/** Una tarjeta por idioma: el og:locale ya cambiaba, el texto no. */
+const COPY: Record<Lang, { claim: [string, string]; sub: string; proof: string[] }> = {
+  es: {
+    claim: ["Diseño y programo", "el mismo producto"],
+    sub: "UX/UI en Figma · Frontend en React y Next.js · Agentes de IA",
+    proof: ["Del diseño al código sin pérdida", "Agentes de IA en producción", "−40% bugs · +23,1% ingresos"],
+  },
+  en: {
+    claim: ["I design and build", "the same product"],
+    sub: "UX/UI in Figma · Frontend in React and Next.js · AI agents",
+    proof: ["Design to code, nothing lost", "AI agents in production", "−40% bugs · +23.1% revenue"],
+  },
+};
 
-export default function OpengraphImage() {
+export function generateStaticParams() {
+  return LANGS.map((lang) => ({ lang }));
+}
+
+export default async function OpengraphImage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const c = COPY[lang === "en" ? "en" : "es"];
   return new ImageResponse(
     (
       <div
@@ -63,7 +82,7 @@ export default function OpengraphImage() {
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08 }}>
-            Diseño y programo
+            {c.claim[0]}
           </div>
           <div
             style={{
@@ -74,15 +93,15 @@ export default function OpengraphImage() {
               color: brand.accent,
             }}
           >
-            el mismo producto
+            {c.claim[1]}
           </div>
           <div style={{ fontSize: 33, marginTop: 22, color: "#c9beb6" }}>
-            UX/UI en Figma · Frontend en React y Next.js · Agentes de IA
+            {c.sub}
           </div>
         </div>
 
         <div style={{ display: "flex", gap: 40, fontSize: 23, color: "#8f847c" }}>
-          {PROOF.map((p) => (
+          {c.proof.map((p) => (
             <div key={p} style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 7, height: 7, borderRadius: 7, background: brand.accent }} />
               {p}
