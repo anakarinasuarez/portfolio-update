@@ -11,8 +11,17 @@ export const siteUrl = (
 export const siteConfig = {
   name: "Ana Karina Suárez González",
   firstName: "Ana Karina",
-  jobTitle: "Frontend Developer & UX/UI Designer",
-  shortTitle: "UI/UX Designer & Front-end Developer",
+  /** Solo para el <title>: el nombre completo lo dejaría por encima del corte
+   *  de Google. El completo sigue en JSON-LD, OG y el resto del sitio. */
+  shortName: "Ana Karina Suárez",
+  // El mismo mensaje en dos longitudes. `jobTitle` va al JSON-LD, que no tiene
+  // límite y lo leen máquinas: ahí cabe el título completo. `shortTitle` acaba
+  // en el <title>, y Google corta sobre los 60 caracteres contando el nombre.
+  jobTitle: {
+    es: "Frontend Developer (React/Next.js) & Product Designer | Agentes de IA y Automatización",
+    en: "Frontend Developer (React/Next.js) & Product Designer | AI Agents & Automation",
+  },
+  shortTitle: "Frontend Developer & Product Designer",
   description:
     "Portfolio de Ana Karina Suárez González, Frontend Developer y diseñadora UX/UI en Sevilla. " +
     "Diseño y construyo productos digitales accesibles y rápidos con React, Next.js y flujos de trabajo con IA.",

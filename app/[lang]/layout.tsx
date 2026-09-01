@@ -49,7 +49,7 @@ const grotesk = Space_Grotesk({
 const baseMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteConfig.name}, ${siteConfig.shortTitle}`,
+    default: `${siteConfig.shortName}, ${siteConfig.shortTitle}`,
     template: `%s, ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -156,7 +156,7 @@ export default async function RootLayout({
         <noscript>
           <style>{`.reveal,.reveal-rise .rise-inner{opacity:1!important;transform:none!important;filter:none!important}`}</style>
         </noscript>
-        <StructuredData />
+        <StructuredData lang={lang as Lang} />
         <a href="#content" className="skip-link">
           Saltar al contenido
         </a>

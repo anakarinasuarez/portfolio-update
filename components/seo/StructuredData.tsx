@@ -1,3 +1,4 @@
+import type { Lang } from "@/lib/lang";
 import { siteConfig, siteUrl, socialLinks } from "@/lib/site";
 
 /**
@@ -5,7 +6,7 @@ import { siteConfig, siteUrl, socialLinks } from "@/lib/site";
  * Renderiza <script type="application/ld+json"> según la recomendación oficial
  * de Next.js. Sanitiza "<" para evitar inyección XSS vía JSON.stringify.
  */
-export function StructuredData() {
+export function StructuredData({ lang }: { lang: Lang }) {
   const personId = `${siteUrl}/#person`;
 
   const jsonLd = {
@@ -15,7 +16,7 @@ export function StructuredData() {
         "@type": "Person",
         "@id": personId,
         name: siteConfig.name,
-        jobTitle: siteConfig.jobTitle,
+        jobTitle: siteConfig.jobTitle[lang],
         description: siteConfig.description,
         url: siteUrl,
         image: `${siteUrl}/images/image-me.webp`,
