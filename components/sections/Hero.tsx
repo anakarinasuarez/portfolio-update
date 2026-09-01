@@ -135,7 +135,7 @@ export function Hero() {
             {"\n"}
             {"  "}name: <span className="ct-s">&apos;Ana Karina Suárez&apos;</span>,
             {"\n"}
-            {"  "}roles: [<span className="ct-s">&apos;UX/UI Designer&apos;</span>,{" "}
+            {"  "}roles: [<span className="ct-s">&apos;Product Designer&apos;</span>,{" "}
             <span className="ct-s">&apos;Frontend Dev&apos;</span>],
             {"\n"}
             {"  "}stack: [<span className="ct-s">&apos;React&apos;</span>,{" "}
