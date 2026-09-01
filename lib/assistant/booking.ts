@@ -34,6 +34,18 @@ export function buildBookingUrl(booking: Booking, base: string | undefined): str
   return url.toString();
 }
 
+/**
+ * La burbuja del chat pinta texto plano, así que un **negrita** del modelo se
+ * vería con asteriscos. Se limpian aquí y no pidiéndoselo al prompt: es
+ * determinista y no gasta tokens.
+ */
+export function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/(^|\s)\*(\S[^*]*?)\*(?=\s|$)/g, "$1$2")
+    .replace(/(^|\n)\s*[-*]\s+/g, "$1• ");
+}
+
 /** Rellenos que el modelo cuela cuando aún no tiene el dato real. */
 const PLACEHOLDER = /^\s*(\.{2,}|-+|n\/?a|unknown|desconocido|pendiente|por (determinar|definir)|sin (especificar|definir)|\?+)\s*$/i;
 

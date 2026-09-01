@@ -7,6 +7,7 @@ import {
   LEAK_REPLY,
   looksLikePromptLeak,
   splitBooking,
+  stripMarkdown,
   systemPrompt,
   type Booking,
   type Lang,
@@ -15,10 +16,17 @@ import {
 /** Endpoint público: acotamos la entrada para no quemar la cuota gratuita. */
 const MAX_MESSAGES = 40;
 const MAX_CHARS = 2000;
-const MAX_COMPLETION_TOKENS = 800;
+// Incluye el razonamiento, no solo el texto visible: con 800 se quedaba corto.
+const MAX_COMPLETION_TOKENS = 1200;
 
 // Versión fijada a propósito: así el tono de las respuestas no cambia solo.
-const MODEL = "llama-3.3-70b-versatile";
+// Groq retiró llama-3.3-70b-versatile de su catálogo y el chat se cayó en
+// producción; conviene revisar que el modelo siga existiendo de vez en cuando.
+const MODEL = "openai/gpt-oss-120b";
+
+// Estos modelos razonan antes de responder y, sin acotarlo, se gastan todo el
+// presupuesto pensando y devuelven una respuesta vacía.
+const REASONING_EFFORT = "low";
 
 type ClientMessage = { role: "user" | "assistant"; text: string };
 type ChatResponse = {
@@ -74,6 +82,7 @@ export async function POST(request: Request): Promise<Response> {
     const completion = await groq.chat.completions.create({
       model: MODEL,
       max_completion_tokens: MAX_COMPLETION_TOKENS,
+      reasoning_effort: REASONING_EFFORT,
       messages: [
         { role: "system", content: systemPrompt(input.lang) },
         ...input.messages.map((m) => ({ role: m.role, content: m.text })),
@@ -88,7 +97,8 @@ export async function POST(request: Request): Promise<Response> {
       return Response.json({ reply: LEAK_REPLY[input.lang], booking: null, bookingUrl: null });
     }
 
-    const { reply, booking } = splitBooking(raw);
+    const { reply: rawReply, booking } = splitBooking(raw);
+    const reply = stripMarkdown(rawReply);
     // Sin los cuatro datos reales no hay tarjeta: el asistente sigue preguntando.
     const usable = isUsableBooking(booking)
       ? { ...booking, topic: cleanTopic(booking.topic ?? "") }
