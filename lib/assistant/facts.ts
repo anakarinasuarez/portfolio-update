@@ -7,7 +7,7 @@ export const ASSISTANT_FACTS = `
 ABOUT ANA KARINA SUÁREZ GONZÁLEZ
 - Frontend Developer, UX/UI Designer and AI Engineer based in Seville, Spain. Works remotely worldwide.
 - Email: karinasuarezdos@gmail.com. Languages: Spanish (native), English (intermediate).
-- LinkedIn: linkedin.com/in/ana-karina-suárez · GitHub: github.com/anakarinasuarez
+- LinkedIn: linkedin.com/in/connect-ana-karina-suárez-gonzález · GitHub: github.com/anakarinasuarez
 - Open to roles, freelance work and collaborations.
 - Do not give out a phone number. If asked for one, point to the email.
 
