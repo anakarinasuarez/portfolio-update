@@ -10,7 +10,11 @@ type ImageSlotProps = {
   shape?: "rect" | "square";
   priority?: boolean;
   sizes?: string;
-  /** next/image quality (defaults to 75). Bump for small, detailed slots. */
+  /**
+   * next/image quality (defaults to 75). Desde Next 16 hay lista blanca: un
+   * valor que no esté en `images.qualities` se ajusta al más cercano en
+   * silencio, así que subirlo aquí exige añadirlo también a next.config.ts.
+   */
   quality?: number;
   /** Decorative slots (hero floats) are hidden from assistive tech. */
   decorative?: boolean;

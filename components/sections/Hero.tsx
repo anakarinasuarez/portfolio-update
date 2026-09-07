@@ -170,7 +170,6 @@ export function Hero() {
                 decorative
                 src={IMAGES.floats[i % IMAGES.floats.length]}
                 sizes="(max-width: 880px) 0px, 260px"
-                quality={92}
                 placeholder={"Foto " + (i + 1)}
               />
             </span>
