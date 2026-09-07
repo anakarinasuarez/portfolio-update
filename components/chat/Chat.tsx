@@ -29,6 +29,8 @@ const CHAT_COPY: Record<
     pickSlot: string;
     booked: string;
     bookedSlot: string;
+    needMore: string;
+    errorBusy: string;
     errorNoAPI: string;
     error: string;
     thinking: string;
@@ -47,6 +49,10 @@ const CHAT_COPY: Record<
     pickSlot: "Pick a time in Ana's calendar",
     booked: "Request ready, your email app will open so Ana receives the details. ✅",
     bookedSlot: "All set — just pick a time that suits you in Ana's calendar. ✅",
+    needMore:
+      "Almost there — to book I still need your name, your email, the topic and the format (video call, phone call or in person).",
+    errorBusy:
+      "I'm getting a lot of messages right now. Give it a few seconds and send that again.",
     errorNoAPI: "The live assistant isn't available here. You can email Ana directly:",
     error: "Sorry, something went wrong. You can also email Ana directly:",
     thinking: "Thinking…",
@@ -64,6 +70,10 @@ const CHAT_COPY: Record<
     pickSlot: "Elegir hora en el calendario de Ana",
     booked: "Solicitud lista, se abrirá tu correo para que Ana reciba los detalles. ✅",
     bookedSlot: "Listo — solo falta que elijas la hora que mejor te venga en el calendario de Ana. ✅",
+    needMore:
+      "Casi está — para agendar aún me faltan tu nombre, tu correo, el tema y el formato (videollamada, llamada o presencial).",
+    errorBusy:
+      "Estoy recibiendo muchos mensajes ahora mismo. Espera unos segundos y vuelve a enviarlo.",
     errorNoAPI: "El asistente en vivo no está disponible aquí. Puedes escribir a Ana directamente:",
     error: "Lo siento, algo salió mal. También puedes escribir a Ana directamente:",
     thinking: "Pensando…",
@@ -129,6 +139,13 @@ export function Chat() {
       });
 
       if (!res.ok) {
+        // El 429 es temporal: la cuota por minuto de Groq se rellena sola. Decir
+        // que algo se rompió y ofrecer el correo manda al visitante fuera del
+        // chat cuando bastaba con esperar unos segundos, así que va sin enlace.
+        if (res.status === 429) {
+          setMsgs([...visible, { role: "assistant", text: c.errorBusy }]);
+          return;
+        }
         const copy = res.status === 503 ? c.errorNoAPI : c.error;
         setMsgs([...visible, { role: "assistant", text: copy, mail: true }]);
         return;
@@ -136,8 +153,11 @@ export function Chat() {
 
       const data = (await res.json()) as ChatResponse;
       // A veces el modelo devuelve solo la reserva, sin texto: el relleno debe
-      // decir lo que hace el boton que se acaba de pintar, no otra cosa.
-      const fallback = data.bookingUrl ? c.bookedSlot : c.booked;
+      // decir lo que hace el boton que se acaba de pintar, no otra cosa. Y si la
+      // reserva no pasó el filtro no hay tarjeta ninguna, asi que se piden los
+      // datos que faltan en vez de dar por lista una solicitud que nadie puede enviar.
+      const withCard = data.bookingUrl ? c.bookedSlot : c.booked;
+      const fallback = data.booking ? withCard : c.needMore;
       setMsgs([...visible, { role: "assistant", text: data.reply || fallback }]);
       if (data.booking) {
         setBooking(data.booking);

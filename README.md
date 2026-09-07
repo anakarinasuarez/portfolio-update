@@ -80,6 +80,13 @@ failing. On Vercel, add `GROQ_API_KEY` under Project Settings → Environment Va
 assistant hands visitors a pre-filled booking page so they pick a slot against
 Ana's real availability. Left empty, the meeting card falls back to email.
 
+A meeting's location (Cal Video, phone, in person) is a property of the Cal.com
+event type and cannot be overridden by a query parameter, so one link would send
+someone who asked for a phone call to a video booking. Create an event type per
+format and set `CAL_BOOKING_URL_PHONE` and `CAL_BOOKING_URL_INPERSON` alongside
+`CAL_BOOKING_URL` (the video one). Either extra link may be left empty — the
+assistant falls back to `CAL_BOOKING_URL`.
+
 ## Project structure
 
 ```

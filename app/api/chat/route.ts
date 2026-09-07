@@ -3,30 +3,35 @@ import Groq from "groq-sdk";
 import {
   buildBookingUrl,
   cleanTopic,
+  completeWithFallback,
   isUsableBooking,
+  pickCalendarUrl,
   LEAK_REPLY,
   looksLikePromptLeak,
   splitBooking,
+  stillAsking,
   stripMarkdown,
   systemPrompt,
   type Booking,
+  type ChatMessage,
   type Lang,
 } from "@/lib/assistant";
 
 /** Endpoint público: acotamos la entrada para no quemar la cuota gratuita. */
 const MAX_MESSAGES = 40;
 const MAX_CHARS = 2000;
-// Incluye el razonamiento, no solo el texto visible: con 800 se quedaba corto.
-const MAX_COMPLETION_TOKENS = 1200;
 
-// Versión fijada a propósito: así el tono de las respuestas no cambia solo.
-// Groq retiró llama-3.3-70b-versatile de su catálogo y el chat se cayó en
-// producción; conviene revisar que el modelo siga existiendo de vez en cuando.
-const MODEL = "openai/gpt-oss-120b";
-
-// Estos modelos razonan antes de responder y, sin acotarlo, se gastan todo el
-// presupuesto pensando y devuelven una respuesta vacía.
-const REASONING_EFFORT = "low";
+/**
+ * Los tres calendarios. Solo CAL_BOOKING_URL es obligatorio: si falta el enlace
+ * del formato concreto se cae a ese, y nada se rompe.
+ */
+function calendarUrlFor(format: string | undefined): string | undefined {
+  return pickCalendarUrl(format, {
+    video: process.env.CAL_BOOKING_URL,
+    phone: process.env.CAL_BOOKING_URL_PHONE,
+    inPerson: process.env.CAL_BOOKING_URL_INPERSON,
+  });
+}
 
 type ClientMessage = { role: "user" | "assistant"; text: string };
 type ChatResponse = {
@@ -78,18 +83,14 @@ export async function POST(request: Request): Promise<Response> {
 
   const groq = new Groq({ apiKey });
 
-  try {
-    const completion = await groq.chat.completions.create({
-      model: MODEL,
-      max_completion_tokens: MAX_COMPLETION_TOKENS,
-      reasoning_effort: REASONING_EFFORT,
-      messages: [
-        { role: "system", content: systemPrompt(input.lang) },
-        ...input.messages.map((m) => ({ role: m.role, content: m.text })),
-      ],
-    });
+  const messages: ChatMessage[] = [
+    { role: "system", content: systemPrompt(input.lang) },
+    ...input.messages.map((m): ChatMessage => ({ role: m.role, content: m.text })),
+  ];
 
-    const raw = (completion.choices[0]?.message?.content ?? "").trim();
+  try {
+    // Si Groq ha retirado el modelo principal, responde el siguiente de la cadena.
+    const { text: raw } = await completeWithFallback(groq, messages);
     if (!raw) return Response.json({ error: "empty" }, { status: 502 });
 
     if (looksLikePromptLeak(raw)) {
@@ -99,14 +100,16 @@ export async function POST(request: Request): Promise<Response> {
 
     const { reply: rawReply, booking } = splitBooking(raw);
     const reply = stripMarkdown(rawReply);
-    // Sin los cuatro datos reales no hay tarjeta: el asistente sigue preguntando.
-    const usable = isUsableBooking(booking)
+    // Sin los cuatro datos reales no hay tarjeta, y tampoco si el texto visible
+    // sigue preguntando: ahí el modelo se ha inventado lo que aún no le han dicho.
+    const usable = isUsableBooking(booking) && !stillAsking(reply)
       ? { ...booking, topic: cleanTopic(booking.topic ?? "") }
       : null;
     const payload: ChatResponse = {
       reply,
       booking: usable,
-      bookingUrl: usable ? buildBookingUrl(usable, process.env.CAL_BOOKING_URL) : null,
+      // El enlace depende del formato: cada uno es un event type distinto en Cal.
+      bookingUrl: usable ? buildBookingUrl(usable, calendarUrlFor(usable.format)) : null,
     };
     return Response.json(payload);
   } catch (error) {
