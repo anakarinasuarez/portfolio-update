@@ -105,7 +105,7 @@ const COPY: Record<Lang, Copy> = {
       { v: "Minutos", l: "del sistema de diseño a una página de marca" },
     ],
     dsL: "Un sistema, muchas marcas",
-    ds: "No diseñé una app, diseñé un sistema. Evolution POS se apoya en un design system basado en tokens (color, tipografía, radios, sombras): los componentes son los mismos para todos los restaurantes, pero cada uno mantiene su propia identidad. Cambiar la marca —colores, logo, tono— genera una app completamente branded, lista para lanzar en minutos, sin reescribir cada pantalla.",
+    ds: "No diseñé una app, diseñé un sistema. Evolution POS se apoya en un design system basado en tokens (color, tipografía, radios, sombras): los componentes son los mismos para todos los restaurantes, pero cada uno mantiene su propia identidad. Cambiar los colores, el logo y el tono genera una app completamente branded, lista para lanzar en minutos, sin reescribir cada pantalla.",
     dsCap: "Tokens de color (claro/oscuro) en Figma: la base del sistema.",
     tagsL: "Disciplinas",
     tags: ["Diseño de producto", "Sistema de diseño", "React", "Zustand", "Next.js"],
