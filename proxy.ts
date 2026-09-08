@@ -33,7 +33,13 @@ function detectarIdioma(request: NextRequest): string {
 }
 
 export const config = {
-  // Fuera lo que no es una página: API, estáticos, iconos y ficheros sueltos
-  // como el de verificación de Google o los PDF del CV.
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  // Fuera lo que no es una página: API, estáticos y ficheros sueltos como el de
+  // verificación de Google o los PDF del CV, que se reconocen por la extensión.
+  //
+  // `icon` y `apple-icon` van aparte porque NO tienen extensión: Next sirve los
+  // iconos generados en /icon y /apple-icon, sin punto, así que el filtro de
+  // ficheros no los veía y acababan redirigidos a /es/icon, que no existe. El
+  // navegador se quedaba sin favicon. Anclados con `$` para no capturar de paso
+  // /icons/… , que sí es una carpeta real de public.
+  matcher: ["/((?!api|_next|icon$|apple-icon$|.*\\..*).*)"],
 };
