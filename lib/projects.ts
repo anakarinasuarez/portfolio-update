@@ -122,7 +122,7 @@ export const PROJECTS: Project[] = [
     es: {
       role: "UX/UI + Frontend",
       note: "Personal · Diseño → Código",
-      blurb: "Lo que se aprueba en Figma suele llegar a producción a medias. Aquí no: un design system completo — ~125 tokens, 32 componentes — portado 1:1 a una app Next.js con TypeScript estricto, 686 tests y WCAG AA verificados en cada pull request. Dentro, una app para aprender inglés con cuentos ilustrados: leer, escuchar, traducir y practicar. Lo que consigues cuando la misma persona lo diseña y lo lanza.",
+      blurb: "Lo que se aprueba en Figma suele llegar a producción a medias. Aquí no: un design system completo de ~125 tokens y 32 componentes, portado 1:1 a una app Next.js con TypeScript estricto, 686 tests y WCAG AA verificados en cada pull request. Dentro, una app para aprender inglés con cuentos ilustrados: leer, escuchar, traducir y practicar. Lo que consigues cuando la misma persona lo diseña y lo lanza.",
       results: ["Design system en Figma → 1:1 en código", "686 tests · WCAG AA · CI en cada PR", "48 pantallas · ~125 tokens · 32 componentes"],
       tags: ["Design System", "Figma", "Next.js", "TypeScript", "Testing", "Accesibilidad"],
     },
