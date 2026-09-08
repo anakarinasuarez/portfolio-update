@@ -4,171 +4,21 @@
    AI assistant — answers questions about Ana Karina and helps
    visitors request an interview. Talks to /api/chat, which holds
    the system prompt and the model credential server-side.
+
+   El estado y la conversación viven en useChat; los textos en copy.
+   Aquí solo queda el marcado.
    ============================================================ */
 
-import { useState, useEffect, useRef } from "react";
-import { useLang, type Lang } from "@/components/i18n/lang";
+import { useState } from "react";
+
 import { Arrow } from "@/components/ui/Arrow";
-import type { Booking } from "@/lib/assistant";
+import { siteConfig } from "@/lib/site";
 
-type ChatMsg = { role: "user" | "assistant"; text: string; mail?: boolean };
-type ChatResponse = { reply: string; booking: Booking | null; bookingUrl: string | null };
-
-
-const CHAT_COPY: Record<
-  Lang,
-  {
-    title: string;
-    sub: string;
-    greeting: string;
-    chips: string[];
-    placeholder: string;
-    send: string;
-    open: string;
-    confirm: string;
-    pickSlot: string;
-    booked: string;
-    bookedSlot: string;
-    needMore: string;
-    errorBusy: string;
-    errorNoAPI: string;
-    error: string;
-    thinking: string;
-  }
-> = {
-  en: {
-    title: "Ana's Assistant",
-    sub: "Ask anything · Book an interview",
-    greeting:
-      "Hi! 👋 I'm Ana Karina's assistant. Ask me about her work, AI-agent experience or stack, or I can help you book an interview, video call or phone call with her.",
-    chips: ["What's her AI experience?", "Book a call or interview", "Tech stack?"],
-    placeholder: "Type your message…",
-    send: "Send",
-    open: "Chat with Ana's assistant",
-    confirm: "Confirm & send request to Ana",
-    pickSlot: "Pick a time in Ana's calendar",
-    booked: "Request ready, your email app will open so Ana receives the details. ✅",
-    bookedSlot: "All set — just pick a time that suits you in Ana's calendar. ✅",
-    needMore:
-      "Almost there — to book I still need your name, your email, the topic and the format (video call, phone call or in person).",
-    errorBusy:
-      "I'm getting a lot of messages right now. Give it a few seconds and send that again.",
-    errorNoAPI: "The live assistant isn't available here. You can email Ana directly:",
-    error: "Sorry, something went wrong. You can also email Ana directly:",
-    thinking: "Thinking…",
-  },
-  es: {
-    title: "Asistente de Ana",
-    sub: "Pregunta lo que quieras · Agenda una entrevista",
-    greeting:
-      "¡Hola! 👋 Soy el asistente de Ana Karina. Pregúntame por su trabajo, su experiencia con agentes de IA o su stack, o te ayudo a agendar una entrevista, videollamada o llamada telefónica con ella.",
-    chips: ["¿Qué experiencia tiene con IA?", "Agendar llamada o entrevista", "¿Su stack técnico?"],
-    placeholder: "Escribe tu mensaje…",
-    send: "Enviar",
-    open: "Chatea con el asistente de Ana",
-    confirm: "Confirmar y enviar solicitud a Ana",
-    pickSlot: "Elegir hora en el calendario de Ana",
-    booked: "Solicitud lista, se abrirá tu correo para que Ana reciba los detalles. ✅",
-    bookedSlot: "Listo — solo falta que elijas la hora que mejor te venga en el calendario de Ana. ✅",
-    needMore:
-      "Casi está — para agendar aún me faltan tu nombre, tu correo, el tema y el formato (videollamada, llamada o presencial).",
-    errorBusy:
-      "Estoy recibiendo muchos mensajes ahora mismo. Espera unos segundos y vuelve a enviarlo.",
-    errorNoAPI: "El asistente en vivo no está disponible aquí. Puedes escribir a Ana directamente:",
-    error: "Lo siento, algo salió mal. También puedes escribir a Ana directamente:",
-    thinking: "Pensando…",
-  },
-};
+import { mailtoFor, useChat } from "./useChat";
 
 export function Chat() {
-  const { lang } = useLang();
-  const c = CHAT_COPY[lang];
   const [open, setOpen] = useState<boolean>(false);
-  const [msgs, setMsgs] = useState<ChatMsg[]>([{ role: "assistant", text: c.greeting }]);
-  const [input, setInput] = useState<string>("");
-  const [busy, setBusy] = useState<boolean>(false);
-  const [booking, setBooking] = useState<Booking | null>(null);
-  const [bookingUrl, setBookingUrl] = useState<string | null>(null);
-  const bodyRef = useRef<HTMLDivElement | null>(null);
-  const greetedLang = useRef<Lang>(lang);
-
-  // refresh greeting if language changes and convo not started
-  useEffect(() => {
-    if (greetedLang.current !== lang) {
-      greetedLang.current = lang;
-      setMsgs((m) => (m.length <= 1 ? [{ role: "assistant", text: c.greeting }] : m));
-    }
-  }, [lang, c.greeting]);
-
-  useEffect(() => {
-    if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
-  }, [msgs, busy, booking]);
-
-  const mailtoFor = (b: Booking) => {
-    const subject = encodeURIComponent(
-      `${b.format ? b.format + " request" : "Meeting request"}: ${b.name || "Portfolio visitor"}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${b.name || ""}\nEmail: ${b.email || ""}\nFormat: ${b.format || ""}\nTopic: ${b.topic || ""}\n\nSent from the portfolio assistant.`
-    );
-    return `mailto:karinasuarezdos@gmail.com?subject=${subject}&body=${body}`;
-  };
-
-  async function send(text?: string) {
-    const content = (text != null ? text : input).trim();
-    if (!content || busy) return;
-    setInput("");
-    setBooking(null);
-    setBookingUrl(null);
-    const visible: ChatMsg[] = [...msgs, { role: "user", text: content }];
-    setMsgs(visible);
-    setBusy(true);
-
-    try {
-      // El saludo inicial es UI, no un turno del modelo, y las burbujas de
-      // error tampoco: la conversación debe empezar por el visitante.
-      const history = visible.filter((m) => !m.mail).slice(1);
-
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          lang,
-          messages: history.map((m) => ({ role: m.role, text: m.text })),
-        }),
-      });
-
-      if (!res.ok) {
-        // El 429 es temporal: la cuota por minuto de Groq se rellena sola. Decir
-        // que algo se rompió y ofrecer el correo manda al visitante fuera del
-        // chat cuando bastaba con esperar unos segundos, así que va sin enlace.
-        if (res.status === 429) {
-          setMsgs([...visible, { role: "assistant", text: c.errorBusy }]);
-          return;
-        }
-        const copy = res.status === 503 ? c.errorNoAPI : c.error;
-        setMsgs([...visible, { role: "assistant", text: copy, mail: true }]);
-        return;
-      }
-
-      const data = (await res.json()) as ChatResponse;
-      // A veces el modelo devuelve solo la reserva, sin texto: el relleno debe
-      // decir lo que hace el boton que se acaba de pintar, no otra cosa. Y si la
-      // reserva no pasó el filtro no hay tarjeta ninguna, asi que se piden los
-      // datos que faltan en vez de dar por lista una solicitud que nadie puede enviar.
-      const withCard = data.bookingUrl ? c.bookedSlot : c.booked;
-      const fallback = data.booking ? withCard : c.needMore;
-      setMsgs([...visible, { role: "assistant", text: data.reply || fallback }]);
-      if (data.booking) {
-        setBooking(data.booking);
-        setBookingUrl(data.bookingUrl);
-      }
-    } catch {
-      setMsgs([...visible, { role: "assistant", text: c.error, mail: true }]);
-    } finally {
-      setBusy(false);
-    }
-  }
+  const { c, msgs, input, setInput, busy, booking, bookingUrl, bodyRef, send } = useChat();
 
   return (
     <div className={"chat" + (open ? " chat-open" : "")}>
@@ -196,7 +46,7 @@ export function Chat() {
                 <div className="chat-bubble">
                   {m.text}
                   {m.mail && (
-                    <a className="chat-maillink" href={"mailto:karinasuarezdos@gmail.com"}>karinasuarezdos@gmail.com</a>
+                    <a className="chat-maillink" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
                   )}
                 </div>
               </div>
