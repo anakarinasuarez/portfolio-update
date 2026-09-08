@@ -18,7 +18,7 @@ type ContactCopy = {
   loc: string;
 };
 
-const EMAIL = "karinasuarezdos@gmail.com";
+const EMAIL = siteConfig.email;
 
 const CONTACT_COPY: Record<Lang, ContactCopy> = {
   en: {
