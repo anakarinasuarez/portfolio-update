@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
     en: {
       role: "UX/UI + Frontend",
       note: "Personal · Design → Code",
-      blurb: "What gets signed off in Figma usually reaches production diluted. Not here: a complete design system — ~125 tokens, 32 components — ported 1:1 into a Next.js app with strict TypeScript, 686 tests and WCAG AA verified on every pull request. Inside, an app to learn English through illustrated stories: read, listen, translate, practise. What you get when the same person designs it and ships it.",
+      blurb: "What gets signed off in Figma usually reaches production diluted. Not here: a complete design system of ~125 tokens and 32 components, ported 1:1 into a Next.js app with strict TypeScript, 686 tests and WCAG AA verified on every pull request. Inside, an app to learn English through illustrated stories: read, listen, translate, practise. What you get when the same person designs it and ships it.",
       results: ["Figma design system → 1:1 in code", "686 tests · WCAG AA · CI on every PR", "48 screens · ~125 tokens · 32 components"],
       tags: ["Design System", "Figma", "Next.js", "TypeScript", "Testing", "Accessibility"],
     },

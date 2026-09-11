@@ -35,9 +35,9 @@ export const CHAT_COPY: Record<Lang, ChatCopy> = {
     confirm: "Confirm & send request to Ana",
     pickSlot: "Pick a time in Ana's calendar",
     booked: "Request ready, your email app will open so Ana receives the details. ✅",
-    bookedSlot: "All set — just pick a time that suits you in Ana's calendar. ✅",
+    bookedSlot: "All set, just pick a time that suits you in Ana's calendar. ✅",
     needMore:
-      "Almost there — to book I still need your name, your email, the topic and the format (video call, phone call or in person).",
+      "Almost there. To book I still need your name, your email, the topic and the format (video call, phone call or in person).",
     errorBusy:
       "I'm getting a lot of messages right now. Give it a few seconds and send that again.",
     errorNoAPI: "The live assistant isn't available here. You can email Ana directly:",
@@ -56,9 +56,9 @@ export const CHAT_COPY: Record<Lang, ChatCopy> = {
     confirm: "Confirmar y enviar solicitud a Ana",
     pickSlot: "Elegir hora en el calendario de Ana",
     booked: "Solicitud lista, se abrirá tu correo para que Ana reciba los detalles. ✅",
-    bookedSlot: "Listo — solo falta que elijas la hora que mejor te venga en el calendario de Ana. ✅",
+    bookedSlot: "Listo, solo falta que elijas la hora que mejor te venga en el calendario de Ana. ✅",
     needMore:
-      "Casi está — para agendar aún me faltan tu nombre, tu correo, el tema y el formato (videollamada, llamada o presencial).",
+      "Casi está. Para agendar aún me faltan tu nombre, tu correo, el tema y el formato (videollamada, llamada o presencial).",
     errorBusy:
       "Estoy recibiendo muchos mensajes ahora mismo. Espera unos segundos y vuelve a enviarlo.",
     errorNoAPI: "El asistente en vivo no está disponible aquí. Puedes escribir a Ana directamente:",

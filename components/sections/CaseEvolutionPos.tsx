@@ -13,7 +13,7 @@ const STEPS: Step[] = [
     title: { es: "Entrar a la mesa", en: "Enter the table" },
     text: {
       es: "El comensal escanea el QR de su mesa y entra al instante, sin apps ni esperas. El sistema detecta la mesa automáticamente.",
-      en: "The diner scans the table QR and is in instantly — no app, no waiting. The system detects the table automatically.",
+      en: "The diner scans the table QR and is in instantly, with no app and no waiting. The system detects the table automatically.",
     },
   },
   {
@@ -53,7 +53,7 @@ const STEPS: Step[] = [
     title: { es: "Dividir la cuenta", en: "Split the bill" },
     text: {
       es: "Divide la cuenta a partes iguales, por platos o manual, y cada comensal paga su parte con un enlace.",
-      en: "Split the bill equally, by items or manually — each guest pays their share via a link.",
+      en: "Split the bill equally, by items or manually, and each guest pays their share via a link.",
     },
   },
   {
@@ -91,7 +91,7 @@ const COPY: Record<Lang, Copy> = {
     kind: "Caso de estudio · Producto",
     tagline: "Reserva, pide y paga desde la mesa.",
     roleL: "Rol", role: "Frontend Developer & Product Designer",
-    whenL: "Periodo", when: "2022 — Hoy",
+    whenL: "Periodo", when: "Desde 2022",
     stackL: "Stack", stack: "React · Zustand · Next.js",
     overviewL: "El proyecto",
     overview:
@@ -116,13 +116,13 @@ const COPY: Record<Lang, Copy> = {
     kind: "Case study · Product",
     tagline: "Book, order and pay from the table.",
     roleL: "Role", role: "Frontend Developer & Product Designer",
-    whenL: "Timeframe", when: "2022 — Now",
+    whenL: "Timeframe", when: "Since 2022",
     stackL: "Stack", stack: "React · Zustand · Next.js",
     overviewL: "The project",
     overview:
       "Evolution POS is a table-side ordering & payment product for restaurants. It removes the friction of depending on staff to order and pay: the diner scans, orders and pays from their phone, and tables turn faster. It ships with a token-based design system that turns each restaurant's identity into a launch-ready, fully branded app in minutes.",
     flowL: "The flow, step by step",
-    flowSub: "Eight screens that take the diner from sitting down to paying — with no waiting.",
+    flowSub: "Eight screens that take the diner from sitting down to paying, with no waiting.",
     metricsL: "Impact",
     metrics: [
       { v: "−40%", l: "customer wait times" },
@@ -130,8 +130,8 @@ const COPY: Record<Lang, Copy> = {
       { v: "Minutes", l: "from design system to a branded page" },
     ],
     dsL: "One system, many brands",
-    ds: "I didn't design an app — I designed a system. Evolution POS runs on a token-based design system (colour, type, radii, shadows): the components are the same for every restaurant, but each keeps its own identity. Swapping the brand — colours, logo, tone — produces a fully branded, launch-ready app in minutes, without rewriting each screen.",
-    dsCap: "Color tokens (light/dark) in Figma — the foundation of the system.",
+    ds: "I didn't design an app, I designed a system. Evolution POS runs on a token-based design system (colour, type, radii, shadows): the components are the same for every restaurant, but each keeps its own identity. Swapping the colours, the logo and the tone produces a fully branded, launch-ready app in minutes, without rewriting each screen.",
+    dsCap: "Color tokens (light/dark) in Figma: the foundation of the system.",
     tagsL: "Disciplines",
     tags: ["Product Design", "Design System", "React", "Zustand", "Next.js"],
     backToWork: "Back to work",

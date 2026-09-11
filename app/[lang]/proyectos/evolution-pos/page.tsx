@@ -10,14 +10,14 @@ const COPY = {
   es: {
     title: "Evolution POS · Caso de estudio",
     description:
-      "Caso de estudio — Evolution POS: pedido y pago desde la mesa para restaurantes, más un sistema de diseño basado en tokens. UX/UI y frontend de Ana Karina Suárez.",
+      "Caso de estudio de Evolution POS: pedido y pago desde la mesa para restaurantes, más un sistema de diseño basado en tokens. UX/UI y frontend de Ana Karina Suárez.",
     ogDescription:
       "Pedido y pago desde la mesa para restaurantes, más un sistema de diseño basado en tokens.",
   },
   en: {
     title: "Evolution POS · Case study",
     description:
-      "Case study — Evolution POS: table-side ordering & payment for restaurants, plus a token-based design system. UX/UI design and frontend by Ana Karina Suárez.",
+      "Evolution POS case study: table-side ordering & payment for restaurants, plus a token-based design system. UX/UI design and frontend by Ana Karina Suárez.",
     ogDescription:
       "Table-side ordering & payment for restaurants, plus a token-based design system.",
   },
